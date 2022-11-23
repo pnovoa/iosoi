@@ -2,3 +2,4 @@
 
 export(compute_intervals)
 export(compute_possibility_degree)
+export(generate_polyhedron_vertices)
