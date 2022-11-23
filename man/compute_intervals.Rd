@@ -2,12 +2,12 @@
 % Please edit documentation in R/algebraic_manipulation.R
 \name{compute_intervals}
 \alias{compute_intervals}
-\title{Compute the score interval for each solution}
+\title{Scoring interval for each solution}
 \usage{
-compute_intervals(vert_eval_matrix)
+compute_intervals(vertex_scores_matrix)
 }
 \arguments{
-\item{vert_eval_matrix}{An m by n matrix containing the scores of
+\item{vertex_scores_matrix}{An m by n matrix containing the scores of
 each of the m solutions (rows) at each of the n vertices (columns).}
 }
 \value{
@@ -15,9 +15,11 @@ An m by 2 matrix containing the lower bound (LB) and
 upper bound (UB) for each of the m solutions (rows).
 }
 \description{
-Compute the score interval for each solution
+This function returns, for each solution, its range of possible scores
+(intervals).
 }
 \examples{
-m <- matrix(c(1,2,3,4,3,2), byrow = T, nrow = 2)
+# Scoring two solutions on three criteria
+m <- matrix(c(1,2,3,4,3,2), byrow = TRUE, nrow = 2)
 compute_intervals(m)
 }
