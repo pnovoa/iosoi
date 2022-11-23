@@ -6,7 +6,7 @@
 #' superior to solution B.
 #'
 #' @param A a vector of the score range (interval) for the solution A. The
-#' first element is the lower dimension, while the second is the higher one.
+#' first element is the lower bound, while the second is the upper bound.
 #' @param B a vector of the score range (interval) for the solution B and with
 #' the same structure as A.
 #' @param attitude attitude of the decision-maker. The three possible options

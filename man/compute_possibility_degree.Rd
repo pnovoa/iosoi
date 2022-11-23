@@ -8,7 +8,7 @@ compute_possibility_degree(A, B, attitude = "neutral")
 }
 \arguments{
 \item{A}{a vector of the score range (interval) for the solution A. The
-first element is the lower dimension, while the second is the higher one.}
+first element is the lower bound, while the second is the upper bound.}
 
 \item{B}{a vector of the score range (interval) for the solution B and with
 the same structure as A.}
