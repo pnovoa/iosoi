@@ -4,9 +4,8 @@ Title: Identifier Of Solution Of Interest
 Version: 0.1.0
 Author: Pavel Novoa-Hernandez
 Maintainer: Pavel Novoa-Hernandez <pavelnovoa@ugr.es>
-Description: Implements a method for identifying solutions of interest in 
-    a multicriteria decision scenario. We extended the method proposed 
-    by Torres et. al (2021).
+Description: Implements and extends the method for identifying solutions of interest in 
+    a multicriteria decision scenario by Torres et. al (2021).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

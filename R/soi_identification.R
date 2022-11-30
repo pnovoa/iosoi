@@ -114,34 +114,25 @@ filter_top_n_sois <- function(sois_matrix, top_n, sort_by = "neutral") {
 
 
 
-threshold_filter_sois <- function(sois_matrix, 
-                             filter_by = "neutral", 
-                             threshold = 0.0){
-  
+threshold_filter_sois <- function(sois_matrix,
+                                  filter_by = "neutral",
+                                  threshold = 0.0) {
   # TODO: Validate sois_matrix if contains filter_by and 0 <= threshold <= 1.
-  
+
   filter_idxs <- sois_matrix[, filter_by] > threshold
-  
+
   return(
-    sois_matrix[filter_idxs,] 
+    sois_matrix[filter_idxs, ]
   )
-  
-  
 }
 
 
-filter_top_n_sois <- function(sois_matrix, top_n, sort_by = "neutral"){
-  
+filter_top_n_sois <- function(sois_matrix, top_n, sort_by = "neutral") {
   # TODO: Validate sois_matrix if contains sort_by and its sizes vs. top_n
-  
-  sorted_idxs <- sois_matrix[order(sois_matrix[, sort_by], decreasing = TRUE),]
-  
+
+  sorted_idxs <- sois_matrix[order(sois_matrix[, sort_by], decreasing = TRUE), ]
+
   return(
-    sois_matrix[sorted_idxs,]
+    sois_matrix[sorted_idxs, ]
   )
-  
 }
-
-
-
-

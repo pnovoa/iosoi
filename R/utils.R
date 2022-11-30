@@ -32,11 +32,11 @@ read_eval_matrix_csv <- function(path, solutions_ids = TRUE, criteria_ids = TRUE
     rownames(eval_mat) <- dt_eval[, 1]
   } else {
     eval_mat <- as.matrix(dt_eval)
-    rownames(eval_mat) <- paste0("S", 1:nrow(eval_mat))
+    rownames(eval_mat) <- generate_solutions_names(nsol = nrow(eval_mat))
   }
 
   if (!criteria_ids) {
-    colnames(eval_mat) <- paste0("C", 1:ncol(eval_mat))
+    colnames(eval_mat) <- generate_criteria_names(ncrit = ncol(eval_mat))
   }
 
   return(eval_mat)
@@ -112,4 +112,40 @@ create_eval_matrix_example <- function(nsol = 10, ncrit = 3) {
   colnames(eval_mat) <- paste0("C", 1:ncrit)
 
   return(eval_mat)
+}
+
+
+generate_solutions_names <- function(nsol){
+  
+  paste0("S", 1:nsol)
+  
+}
+
+generate_criteria_names <- function(ncrit){
+  
+  paste0("C", 1:ncrit)
+  
+}
+
+get_eval_vertex_prefix <- function(){
+  return("VE_")
+}
+
+get_eval_vertex_names <- function(colum_names, prefix = "VE_"){
+  
+  grepl(paste0("^", prefix), 
+        colum_names)
+  
+}
+
+get_reference_name <- function(){
+  return(
+    "REF"
+  )
+}
+
+get_range_names <- function(){
+  return(
+    c("LB", "UB")
+  )
 }
