@@ -13,10 +13,10 @@
 #'
 #' @examples
 #' # Scoring two solutions on three criteria
-#' m <- matrix(c(1,2,3,4,3,2), byrow = TRUE, nrow = 2)
+#' m <- matrix(c(1, 2, 3, 4, 3, 2), byrow = TRUE, nrow = 2)
 #' compute_intervals(m)
-compute_intervals <- function(vertex_scores_matrix){
-  intervals_bounds <- apply(vertex_scores_matrix, MARGIN=1, FUN=range)
+compute_intervals <- function(vertex_scores_matrix) {
+  intervals_bounds <- apply(vertex_scores_matrix, MARGIN = 1, FUN = range)
   intervals_bounds <- t(intervals_bounds)
   colnames(intervals_bounds) <- c("LB", "UB")
   return(intervals_bounds)
@@ -53,21 +53,15 @@ compute_intervals <- function(vertex_scores_matrix){
 #' @examples
 #' # Generating the coordinates of the three vertices in a 3-criteria problem.
 #' generate_polyhedron_vertices(3)
-
-generate_polyhedron_vertices <- function(n){
-
+#'
+generate_polyhedron_vertices <- function(n) {
   m <- matrix(
-    rep(1/1:n, n),
+    rep(1 / 1:n, n),
     nrow = n,
-    byrow=T
+    byrow = T
   )
 
   m[lower.tri(m)] <- 0.
 
   return(m)
-
 }
-
-
-
-

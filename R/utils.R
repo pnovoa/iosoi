@@ -24,19 +24,18 @@
 #' @examples
 #' # eval_mat <- read_eval_matrix_csv("eval_mat.csv")
 #'
-read_eval_matrix_csv <- function(path, solutions_ids=TRUE, criteria_ids=TRUE){
+read_eval_matrix_csv <- function(path, solutions_ids = TRUE, criteria_ids = TRUE) {
+  dt_eval <- utils::read.csv(file = path, header = criteria_ids)
 
-  dt_eval <- utils::read.csv(file=path, header = criteria_ids)
-
-  if(solutions_ids){
-    eval_mat <- as.matrix(dt_eval[,-1])
-    rownames(eval_mat) <- dt_eval[,1]
-  } else{
+  if (solutions_ids) {
+    eval_mat <- as.matrix(dt_eval[, -1])
+    rownames(eval_mat) <- dt_eval[, 1]
+  } else {
     eval_mat <- as.matrix(dt_eval)
     rownames(eval_mat) <- paste0("S", 1:nrow(eval_mat))
   }
 
-  if(!criteria_ids){
+  if (!criteria_ids) {
     colnames(eval_mat) <- paste0("C", 1:ncol(eval_mat))
   }
 
@@ -59,16 +58,14 @@ read_eval_matrix_csv <- function(path, solutions_ids=TRUE, criteria_ids=TRUE){
 #'
 #' @examples
 #' # write_output_csv(out_matrix, path="output_matrix.csv")
-write_output_csv <- function(output_matrix, path = "output.csv"){
-
+write_output_csv <- function(output_matrix, path = "output.csv") {
   dt_out <- as.data.frame(output_matrix)
 
   dt_out$Solution <- rownames(output_matrix)
 
-  dt_out <- dt_out[, c(ncol(dt_out),1:(ncol(dt_out)-1))]
+  dt_out <- dt_out[, c(ncol(dt_out), 1:(ncol(dt_out) - 1))]
 
   utils::write.csv(x = dt_out, file = path, row.names = FALSE)
-
 }
 
 
@@ -89,18 +86,14 @@ write_output_csv <- function(output_matrix, path = "output.csv"){
 #' @examples
 #' # An example matrix containing the evaluations for 10
 #' # solutions at three criteria
-#' example_matrix <- create_eval_matrix_example(10,3)
+#' example_matrix <- create_eval_matrix_example(10, 3)
 #'
-create_eval_matrix_example <- function(nsol=10, ncrit=3){
-
-  eval_mat <- matrix(stats::runif(n = nsol*ncrit), nrow = nsol)
+create_eval_matrix_example <- function(nsol = 10, ncrit = 3) {
+  eval_mat <- matrix(stats::runif(n = nsol * ncrit), nrow = nsol)
 
   rownames(eval_mat) <- paste0("S", 1:nsol)
 
   colnames(eval_mat) <- paste0("C", 1:ncrit)
 
   return(eval_mat)
-
 }
-
-
