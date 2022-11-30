@@ -32,7 +32,7 @@ B <- c(2, 4)
 # Neutral attitude
 compute_possibility_degree(A, B)
 # Pessimistic attitude
-compute_possibility_degree(A, B, attitude="pessimistic")
+compute_possibility_degree(A, B, attitude = "pessimistic")
 # Optimistic attitude
-compute_possibility_degree(A, B, attitude="optimistic")
+compute_possibility_degree(A, B, attitude = "optimistic")
 }

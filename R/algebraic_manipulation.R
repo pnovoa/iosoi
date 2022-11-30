@@ -44,7 +44,7 @@ compute_intervals <- function(vertex_scores_matrix) {
 #' This matrix is required to compute the range of possible scores for each
 #' solution.
 #'
-#' @param n the number of criteria (dimension of the search space)
+#' @param ncrit the number of criteria (dimension of the search space)
 #'
 #' @return an n by n matrix with the coordinates of each vertex of the
 #' polyhedron in the columns.
@@ -54,14 +54,26 @@ compute_intervals <- function(vertex_scores_matrix) {
 #' # Generating the coordinates of the three vertices in a 3-criteria problem.
 #' generate_polyhedron_vertices(3)
 #'
-generate_polyhedron_vertices <- function(n) {
+generate_polyhedron_vertices <- function(ncrit) {
   m <- matrix(
-    rep(1 / 1:n, n),
-    nrow = n,
+    rep(1 / 1:ncrit, ncrit),
+    nrow = ncrit,
     byrow = T
   )
 
   m[lower.tri(m)] <- 0.
 
   return(m)
+}
+
+
+
+evaluate_at_vertices <- function(eval_matrix, vert_matrix) {
+  eval_matrix %*% vert_matrix
+}
+
+
+
+get_reference_solution_index <- function(interval_matrix) {
+  which.max(interval_matrix[, "LB"])
 }

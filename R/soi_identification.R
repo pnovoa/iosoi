@@ -5,7 +5,8 @@
 identify_sois <- function(eval_matrix,
                           crit_pref = NA,
                           include_interval = TRUE,
-                          att_output = c("neutral")) {
+                          att_output = c("neutral"),
+                          other_output = c("volume")) {
   # TODO: Check equal sizes between eval_matrix columns and crit_pref length.
   #       Validate the composition of input data
 
@@ -25,16 +26,19 @@ identify_sois <- function(eval_matrix,
   }
 
   # Getting the polyhedron vertices
-  ver_mat <- generate_polyhedron_vertices(n = ncrit)
+  ver_mat <- generate_polyhedron_vertices(ncrit = ncrit)
 
   # Computing the scores for each solution at each vertex
-  vert_score_mat <- eval_mat %*% ver_mat
+  vert_score_mat <- evaluate_at_vertices(
+    eval_matrix = eval_mat,
+    vert_matrix = ver_mat
+  )
 
   # Get the scoring interval for each solution
   interval_matrix <- compute_intervals(vertex_scores_matrix = vert_score_mat)
 
   # Identifying the reference solution index (the one with the max lower bound)
-  ref_sol_ind <- which.max(interval_matrix[, "LB"])
+  ref_sol_ind <- get_reference_solution_index(interval_matrix = interval_matrix)
 
   # Getting the possibility degree for each solution against the reference one.
 
@@ -44,11 +48,22 @@ identify_sois <- function(eval_matrix,
     att_list = att_output
   )
 
+
   if (is.null(rownames(eval_mat))) {
     rownames(interval_matrix) <- 1:nsol
   }
 
   result_matrix <- cbind(interval_matrix, poss_mat)
+
+  if (!(is.null(other_output) & length(other_output) < 1)) {
+    app_mat <- compute_all_other_approaches(
+      eval_matrix = eval_matrix,
+      ref_sol_eval = eval_matrix[ref_sol_ind, ],
+      vert_matrix = ver_mat,
+      approaches = other_output
+    )
+    result_matrix <- cbind(result_matrix, app_mat)
+  }
 
   return(result_matrix)
 }

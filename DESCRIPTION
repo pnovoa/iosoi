@@ -13,4 +13,7 @@ LazyData: true
 RoxygenNote: 7.2.2
 Imports:
     utils,
-    stats
+    stats,
+    cli,
+    assertthat,
+    SimplicialCubature

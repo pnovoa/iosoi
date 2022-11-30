@@ -22,6 +22,6 @@ generated following a uniform random distribution.
 \examples{
 # An example matrix containing the evaluations for 10
 # solutions at three criteria
-example_matrix <- create_eval_matrix_example(10,3)
+example_matrix <- create_eval_matrix_example(10, 3)
 
 }

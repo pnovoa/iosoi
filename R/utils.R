@@ -2,11 +2,11 @@
 
 #' Read an evaluation matrix from a csv file
 #'
-#' This function helps to read an evaluation matrix from a csv file. The
+#' This function reads an evaluation matrix from a csv file. The
 #' contents of the file must include, in tabular form, the numerical
 #' evaluations for each solution (rows) in each criterion (column).
 #' If the first column includes an identifier for each solution,
-#' it will be read as a string. The same is true for the criteria.
+#' it will be read as a string.
 #' In case it is indicated, through the corresponding parameters, that the
 #' file does not have these identifiers, then the function will assign names
 #' following an ascending order (e.g. S1, S2,... for the solutions,
@@ -89,6 +89,22 @@ write_output_csv <- function(output_matrix, path = "output.csv") {
 #' example_matrix <- create_eval_matrix_example(10, 3)
 #'
 create_eval_matrix_example <- function(nsol = 10, ncrit = 3) {
+  if (!assertthat::is.count(nsol)) {
+    cli::cli_abort(
+      c(
+        "{.var nsol} must be a non-negative integer"
+      )
+    )
+  }
+
+  if (!assertthat::is.count(ncrit)) {
+    cli::cli_abort(
+      c(
+        "{.var ncrit} must be a non-negative integer"
+      )
+    )
+  }
+
   eval_mat <- matrix(stats::runif(n = nsol * ncrit), nrow = nsol)
 
   rownames(eval_mat) <- paste0("S", 1:nsol)

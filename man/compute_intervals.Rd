@@ -20,6 +20,6 @@ This function returns, for each solution, its range of possible scores
 }
 \examples{
 # Scoring two solutions on three criteria
-m <- matrix(c(1,2,3,4,3,2), byrow = TRUE, nrow = 2)
+m <- matrix(c(1, 2, 3, 4, 3, 2), byrow = TRUE, nrow = 2)
 compute_intervals(m)
 }

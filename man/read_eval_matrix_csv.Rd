@@ -19,11 +19,11 @@ identifiers for the criteria in the first row. The default value is TRUE.}
 an matrix containing the evaluations
 }
 \description{
-This function helps to read an evaluation matrix from a csv file. The
+This function reads an evaluation matrix from a csv file. The
 contents of the file must include, in tabular form, the numerical
 evaluations for each solution (rows) in each criterion (column).
 If the first column includes an identifier for each solution,
-it will be read as a string. The same is true for the criteria.
+it will be read as a string.
 In case it is indicated, through the corresponding parameters, that the
 file does not have these identifiers, then the function will assign names
 following an ascending order (e.g. S1, S2,... for the solutions,

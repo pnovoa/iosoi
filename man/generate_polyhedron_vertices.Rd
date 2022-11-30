@@ -4,10 +4,10 @@
 \alias{generate_polyhedron_vertices}
 \title{Vertices of the polyhedron of feasible weights}
 \usage{
-generate_polyhedron_vertices(n)
+generate_polyhedron_vertices(ncrit)
 }
 \arguments{
-\item{n}{the number of criteria (dimension of the search space)}
+\item{ncrit}{the number of criteria (dimension of the search space)}
 }
 \value{
 an n by n matrix with the coordinates of each vertex of the
@@ -32,4 +32,5 @@ solution.
 \examples{
 # Generating the coordinates of the three vertices in a 3-criteria problem.
 generate_polyhedron_vertices(3)
+
 }
