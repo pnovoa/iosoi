@@ -1,6 +1,7 @@
 
 
-plot_intervals <- function(interval_matrix, highlight_reference = TRUE){
+plot_intervals <- function(interval_matrix, 
+                           highlight_reference = TRUE){
 
   sol_labels <- rownames(interval_matrix)
 
@@ -39,4 +40,21 @@ plot_intervals <- function(interval_matrix, highlight_reference = TRUE){
                      pch=16,
                      col="red")
   }
+}
+
+
+
+plot_comparison <- function(result_matrix, what){
+  
+  what_label <- paste0(toupper(substr(what, 1, 1)), 
+                      substr(what, 2, nchar(what)))
+  
+  graphics::barplot(height=result_matrix[, what], 
+          names=rownames(result_matrix),
+          col=result_matrix[, get_reference_name()],
+          ylab=what_label,
+          xlab="Solution",
+          main=what_label
+          )
+  
 }
