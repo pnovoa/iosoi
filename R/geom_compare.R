@@ -4,35 +4,34 @@ geom_compare <- function(eval_matrix,
                          crit_columns = NA,
                          reference_column = NA,
                          by = c("volume"),
-                         append_output = TRUE){
-
-  if (is.na(crit_columns)){
+                         append_output = TRUE) {
+  if (is.na(crit_columns)) {
     eval_col_names <- get_prefixed_column_names(colnames(eval_matrix),
-                                                prefix=get_criteria_prefix())
+      prefix = get_criteria_prefix()
+    )
   } else {
     eval_col_names <- crit_columns
   }
 
   e_matrix <- eval_matrix[, eval_col_names]
 
-  if (length(e_matrix) == 0){
+  if (length(e_matrix) == 0) {
     cli::cli_abort(
       c("It was not possible to determine which
         columns of {.var eval_matrix} correspond
-        to the evaluations of the solutions."
-      )
+        to the evaluations of the solutions.")
     )
   }
 
-  if (is.na(reference_column)){
+  if (is.na(reference_column)) {
     ref_name <- get_reference_name()
-  } else{
+  } else {
     ref_name <- reference_column
   }
 
   ref_col <- eval_matrix[, ref_name]
 
-  if (length(ref_col) == 0){
+  if (length(ref_col) == 0) {
     cli::cli_abort(
       c(
         "Reference column no found.",
@@ -43,11 +42,11 @@ geom_compare <- function(eval_matrix,
     )
   }
 
-  ref_sol_eval <- e_matrix[which.max(ref_col),]
+  ref_sol_eval <- e_matrix[which.max(ref_col), ]
 
-  if (is.na(vert_matrix)){
+  if (is.na(vert_matrix)) {
     v_matrix <- generate_polyhedron_vertices(ncrit = sum(eval_col_names))
-  } else{
+  } else {
     v_matrix <- vert_matrix
   }
 
@@ -63,7 +62,7 @@ geom_compare <- function(eval_matrix,
     })
   })
 
-  if(append_output){
+  if (append_output) {
     return(
       cbind(
         eval_matrix,
@@ -73,7 +72,6 @@ geom_compare <- function(eval_matrix,
   }
 
   return(result_matrix)
-
 }
 
 
@@ -128,5 +126,3 @@ poss_volume_compare <- function(ref_sol_eval, other_sol_eval, vert_matrix) {
     (volume_compare(ref_sol_eval, other_sol_eval, vert_matrix) + 1) / 2.
   )
 }
-
-

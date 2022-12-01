@@ -19,14 +19,13 @@
 #' make_intervals(m)
 make_intervals <- function(eval_at_vert_matrix,
                            append_output = TRUE) {
-
   # Filter the score matrix (those column with VE_ prefix)
 
   col_names <- get_prefixed_column_names(colnames(eval_at_vert_matrix))
 
   true_eav_matrix <- eval_at_vert_matrix[, col_names]
 
-  if (length(true_eav_matrix) == 0){
+  if (length(true_eav_matrix) == 0) {
     true_eav_matrix <- eval_at_vert_matrix
   }
 
@@ -43,6 +42,3 @@ make_intervals <- function(eval_at_vert_matrix,
 
   return(interval_matrix)
 }
-
-
-

@@ -16,8 +16,7 @@ evaluate_at_vertices <- function(eval_matrix,
 
     v_mat <- generate_polyhedron_vertices(ncrit = ncrit)
     criteria_names <- colnames(eval_matrix)
-
-  } else{
+  } else {
     v_mat <- vert_matrix
     criteria_names <- generate_criteria_names(ncrit = ncrit)
   }
@@ -41,7 +40,4 @@ evaluate_at_vertices <- function(eval_matrix,
   }
 
   return(vert_score_mat)
-
 }
-
-
