@@ -15,4 +15,6 @@ Imports:
     stats,
     cli,
     assertthat,
-    SimplicialCubature
+    SimplicialCubature,
+    graphics,
+    magrittr

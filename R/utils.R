@@ -116,26 +116,36 @@ create_eval_matrix_example <- function(nsol = 10, ncrit = 3) {
 
 
 generate_solutions_names <- function(nsol){
-  
-  paste0("S", 1:nsol)
-  
+
+  paste0(get_solutions_prefix(), 1:nsol)
+
+}
+
+get_solutions_prefix <- function(){
+  return(
+    "S"
+  )
 }
 
 generate_criteria_names <- function(ncrit){
-  
-  paste0("C", 1:ncrit)
-  
+
+  paste0(get_criteria_prefix(), 1:ncrit)
+
+}
+
+get_criteria_prefix <- function(){
+  return("C")
 }
 
 get_eval_vertex_prefix <- function(){
   return("VE_")
 }
 
-get_eval_vertex_names <- function(colum_names, prefix = "VE_"){
-  
-  grepl(paste0("^", prefix), 
+get_prefixed_column_names <- function(colum_names, prefix = "VE_"){
+
+  grepl(paste0("^", prefix),
         colum_names)
-  
+
 }
 
 get_reference_name <- function(){
@@ -149,3 +159,47 @@ get_range_names <- function(){
     c("LB", "UB")
   )
 }
+
+
+
+#' Vertices of the polyhedron of feasible weights
+#'
+#' Generates an n by n matrix of the vertices of the polyhedron
+#' of the feasible region of weights. This region is induced by the following
+#' set of constraints: wi >= 0 (for all i = 1...n), w1+...+w2 = 1 and
+#' w1 <=...<= wn, where wj is the weight of the jth most important criterion
+#' (according to the order of preference given by the decision maker).
+#' In particular, w1 is the weight of the most important criterion,
+#' while wn is the weight of the least important criterion.
+#' The order of the rows of the resulting matrix is consistent with
+#' this descendant order of preference. For example,
+#' the first row corresponds to the most important criterion
+#' (e.g. the first in the order of preference),
+#' the second column to the second most important criterion, and so on.
+#' The columns of the matrix correspond to the coordinates of the polyhedron.
+#' This matrix is required for computing the range (intervals) of possible
+#' scores for each solution.
+#'
+#' @param ncrit the number of criteria (dimension of the search space)
+#'
+#' @return an n by n matrix with the coordinates of each vertex of the
+#' polyhedron in the columns.
+#' @export
+#'
+#' @examples
+#' # Generating the coordinates of the three vertices in a 3-criteria problem.
+#' generate_polyhedron_vertices(3)
+#'
+generate_polyhedron_vertices <- function(ncrit) {
+  m <- matrix(
+    rep(1 / 1:ncrit, ncrit),
+    nrow = ncrit,
+    byrow = T
+  )
+
+  m[lower.tri(m)] <- 0.
+
+  return(m)
+}
+
+
