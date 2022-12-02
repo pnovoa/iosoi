@@ -13,11 +13,11 @@ identify_sois <- function(eval_matrix,
   e_matrix <- eval_matrix[, c_pref]
 
   e_matrix %>%
-    evaluate_at_vertices() %>%
+    score() %>%
     make_intervals() %>%
     identify_reference() %>%
     compare_with_reference(by = by) %>%
-    filter_by_threshold(
+    filter_soi(
       by = by,
       threshold = threshold
     )
@@ -37,11 +37,11 @@ identify_sois_geom <- function(eval_matrix,
   e_matrix <- eval_matrix[, c_pref]
 
   e_matrix %>%
-    evaluate_at_vertices() %>%
+    score() %>%
     make_intervals() %>%
     identify_reference() %>%
     geom_compare(by = by) %>%
-    filter_by_threshold(
+    filter_soi(
       by = by,
       threshold = threshold
     )

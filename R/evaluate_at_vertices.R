@@ -1,4 +1,4 @@
-evaluate_at_vertices <- function(eval_matrix,
+score <- function(eval_matrix,
                                  vert_matrix = NA,
                                  append_output = TRUE) {
   ncrit <- ncol(x = eval_matrix)

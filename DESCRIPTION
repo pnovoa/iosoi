@@ -17,4 +17,6 @@ Imports:
     assertthat,
     SimplicialCubature,
     graphics,
-    magrittr
+    magrittr,
+    rcdd
+    

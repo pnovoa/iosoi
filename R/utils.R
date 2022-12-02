@@ -197,3 +197,19 @@ generate_polyhedron_vertices <- function(ncrit) {
 
   return(m)
 }
+
+
+vertify <- function(A_matrix, b_vector){
+
+  V <- rcdd::scdd(
+    rcdd::makeH(
+      a1 = A_matrix,
+      b1 = b_vector,
+      a2 = rep(1,ncol(A_matrix)),
+      b2 = c(1))
+    )$output[, -(1:2)]
+
+  return(
+    t(apply(V, MARGIN = 2, rev))
+  )
+}
