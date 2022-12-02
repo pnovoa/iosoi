@@ -1,6 +1,6 @@
 score <- function(eval_matrix,
-                                 vert_matrix = NA,
-                                 append_output = TRUE) {
+                  vert_matrix = NA,
+                  append_output = TRUE) {
   ncrit <- ncol(x = eval_matrix)
   nsol <- nrow(x = eval_matrix)
 

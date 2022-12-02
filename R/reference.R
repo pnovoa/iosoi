@@ -1,7 +1,7 @@
 
-identify_reference <- function(interval_matrix,
-                               sel_fun = max_lower_bound,
-                               append_output = TRUE) {
+reference <- function(interval_matrix,
+                      sel_fun = max_lower_bound,
+                      append_output = TRUE) {
   range_names <- get_range_names()
 
   if (sum(range_names %in% colnames(interval_matrix))) {

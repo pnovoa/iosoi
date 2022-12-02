@@ -115,46 +115,6 @@ create_eval_matrix_example <- function(nsol = 10, ncrit = 3) {
 }
 
 
-generate_solutions_names <- function(nsol) {
-  paste0(get_solutions_prefix(), 1:nsol)
-}
-
-get_solutions_prefix <- function() {
-  return(
-    "S"
-  )
-}
-
-generate_criteria_names <- function(ncrit) {
-  paste0(get_criteria_prefix(), 1:ncrit)
-}
-
-get_criteria_prefix <- function() {
-  return("C")
-}
-
-get_eval_vertex_prefix <- function() {
-  return("VE_")
-}
-
-get_prefixed_column_names <- function(colum_names, prefix = "VE_") {
-  grepl(
-    paste0("^", prefix),
-    colum_names
-  )
-}
-
-get_reference_name <- function() {
-  return(
-    "REF"
-  )
-}
-
-get_range_names <- function() {
-  return(
-    c("LB", "UB")
-  )
-}
 
 
 
@@ -199,15 +159,15 @@ generate_polyhedron_vertices <- function(ncrit) {
 }
 
 
-vertify <- function(A_matrix, b_vector){
-
+vertify <- function(A_matrix, b_vector) {
   V <- rcdd::scdd(
     rcdd::makeH(
       a1 = A_matrix,
       b1 = b_vector,
-      a2 = rep(1,ncol(A_matrix)),
-      b2 = c(1))
-    )$output[, -(1:2)]
+      a2 = rep(1, ncol(A_matrix)),
+      b2 = c(1)
+    )
+  )$output[, -(1:2)]
 
   return(
     t(apply(V, MARGIN = 2, rev))

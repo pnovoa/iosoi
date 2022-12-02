@@ -1,10 +1,10 @@
 
 
-compare_with_reference <- function(interval_matrix,
-                                   range_columns = NA,
-                                   reference_column = NA,
-                                   by = c("neutral"),
-                                   append_output = TRUE) {
+assess <- function(interval_matrix,
+                   range_columns = NA,
+                   reference_column = NA,
+                   by = c("neutral"),
+                   append_output = TRUE) {
   if (is.na(range_columns)) {
     range_names <- get_range_names()
   } else {

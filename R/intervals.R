@@ -16,9 +16,9 @@
 #' @examples
 #' # Scoring two solutions on three criteria
 #' m <- matrix(c(1, 2, 3, 4, 3, 2), byrow = TRUE, nrow = 2)
-#' make_intervals(m)
-make_intervals <- function(eval_at_vert_matrix,
-                           append_output = TRUE) {
+#' intervals(m)
+intervals <- function(eval_at_vert_matrix,
+                      append_output = TRUE) {
   # Filter the score matrix (those column with VE_ prefix)
 
   col_names <- get_prefixed_column_names(colnames(eval_at_vert_matrix))

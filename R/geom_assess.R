@@ -1,10 +1,10 @@
 
-geom_compare <- function(eval_matrix,
-                         vert_matrix = NA,
-                         crit_columns = NA,
-                         reference_column = NA,
-                         by = c("volume"),
-                         append_output = TRUE) {
+geom_assess <- function(eval_matrix,
+                        vert_matrix = NA,
+                        crit_columns = NA,
+                        reference_column = NA,
+                        by = c("volume"),
+                        append_output = TRUE) {
   if (is.na(crit_columns)) {
     eval_col_names <- get_prefixed_column_names(colnames(eval_matrix),
       prefix = get_criteria_prefix()
