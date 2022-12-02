@@ -1,19 +1,12 @@
 
 
-identify_sois <- function(eval_matrix,
-                          crit_preference = NA,
+poss_identify_sois <- function(eval_matrix,
+                          vert_matrix = NA,
                           by = "neutral",
                           threshold = 0.0) {
-  c_pref <- 1:ncol(eval_matrix)
 
-  if (!is.na(crit_preference)) {
-    c_pref <- crit_preference
-  }
-
-  e_matrix <- eval_matrix[, c_pref]
-
-  e_matrix %>%
-    score() %>%
+  eval_matrix %>%
+    score(vert_matrix = vert_matrix) %>%
     intervals() %>%
     reference() %>%
     assess(by = by) %>%
@@ -24,20 +17,14 @@ identify_sois <- function(eval_matrix,
 }
 
 
-identify_sois_geom <- function(eval_matrix,
-                               crit_preference = NA,
+geom_identify_sois <- function(eval_matrix,
+                               vert_matrix = NA,
                                by = "volume",
                                threshold = 0.0) {
-  c_pref <- 1:ncol(eval_matrix)
 
-  if (!is.na(crit_preference)) {
-    c_pref <- crit_preference
-  }
 
-  e_matrix <- eval_matrix[, c_pref]
-
-  e_matrix %>%
-    score() %>%
+  eval_matrix %>%
+    score(vert_matrix = vert_matrix) %>%
     intervals() %>%
     reference() %>%
     geom_assess(by = by) %>%
@@ -45,6 +32,18 @@ identify_sois_geom <- function(eval_matrix,
       by = by,
       threshold = threshold
     )
+}
+
+all_assessments <- function(eval_matrix,
+                              vert_matrix = NA){
+
+  eval_matrix %>%
+    score(vert_matrix = vert_matrix) %>%
+    intervals() %>%
+    reference() %>%
+    assess(by = "all") %>%
+    geom_assess(by = "all")
+
 }
 
 

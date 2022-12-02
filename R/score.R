@@ -9,15 +9,18 @@ score <- function(eval_matrix,
 
   eval_mat <- eval_matrix
 
-  empty_vert_matrix <- is.na(x = vert_matrix) | is.null(x = vert_matrix)
+  empty_vert_matrix <- is.na(x = vert_matrix)[1] || is.null(x = vert_matrix)
 
 
   if (empty_vert_matrix) { # A criteria preference is not provided
-
     v_mat <- generate_polyhedron_vertices(ncrit = ncrit)
-    criteria_names <- colnames(eval_matrix)
   } else {
     v_mat <- vert_matrix
+  }
+
+  criteria_names <- colnames(eval_matrix)
+
+  if (is.null(criteria_names)){
     criteria_names <- generate_criteria_names(ncrit = ncrit)
   }
 

@@ -38,3 +38,25 @@ get_range_names <- function() {
     c("LB", "UB")
   )
 }
+
+
+get_poss_approaches <- function(){
+
+  return(
+    c("optimistic",
+      "neutral",
+      "pessimistic"
+      )
+  )
+}
+
+
+get_geom_approaches <- function(){
+
+  return(
+    c("volume",
+      "poss_volume",
+      "vert_prop"
+    )
+  )
+}

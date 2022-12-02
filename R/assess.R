@@ -23,6 +23,9 @@ assess <- function(interval_matrix,
   ref_sol_indx <- which.max(ref_matrix)
   ref_sol <- int_matrix[ref_sol_indx, ]
 
+    if(by == "all"){
+      by <- get_poss_approaches()
+    }
 
   result_matrix <- sapply(by, function(att) {
     m <- apply(int_matrix, MARGIN = 1, FUN = function(solA) {

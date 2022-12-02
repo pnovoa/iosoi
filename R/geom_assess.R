@@ -50,6 +50,10 @@ geom_assess <- function(eval_matrix,
     v_matrix <- vert_matrix
   }
 
+  if(by == "all"){
+    by <- get_geom_approaches()
+  }
+
 
   result_matrix <- sapply(by, function(app) {
     m <- apply(e_matrix, MARGIN = 1, FUN = function(other_sol) {
@@ -79,19 +83,19 @@ compute_other_approach <- function(other_sol_eval,
                                    ref_sol_eval,
                                    vert_matrix,
                                    approach = "volume") {
-  # If approach = "volume"
-  af <- volume_compare
-  if (approach == "poss_volume") {
-    af <- poss_volume_compare
-    # } else {
-    #  af <- optimistic_attitude
+  if (approach == "volume") {
+    volume_compare(ref_sol_eval, other_sol_eval, vert_matrix)
   }
-
-  af(ref_sol_eval, other_sol_eval, vert_matrix)
+  else if (approach == "poss_volume") {
+    poss_volume_compare(ref_sol_eval, other_sol_eval, vert_matrix)
+  } else if (approach == "vert_prop"){
+    vert_prop_compare(ref_sol_eval, other_sol_eval)
+  }
 }
 
 
 volume_compare <- function(ref_sol_eval, other_sol_eval, vert_matrix) {
+
   identity_matrix <- diag(length(ref_sol_eval))
 
   pol_ref_sol <- SimplicialCubature::definePoly(
@@ -120,9 +124,17 @@ volume_compare <- function(ref_sol_eval, other_sol_eval, vert_matrix) {
 
 
 poss_volume_compare <- function(ref_sol_eval, other_sol_eval, vert_matrix) {
-  identity_matrix <- diag(length(ref_sol_eval))
 
   return(
     (volume_compare(ref_sol_eval, other_sol_eval, vert_matrix) + 1) / 2.
   )
+}
+
+
+vert_prop_compare <- function(ref_sol_eval, other_sol_eval, vert_matrix){
+
+  return(
+    sum(other_sol_eval >= ref_sol_eval) / length(other_sol_eval)
+  )
+
 }
