@@ -49,14 +49,14 @@ plot_intervals <- function(interval_matrix,
 
 
 
-plot_comparison <- function(result_matrix, what) {
+plot_comparison <- function(result_matrix, by) {
   what_label <- paste0(
-    toupper(substr(what, 1, 1)),
-    substr(what, 2, nchar(what))
+    toupper(substr(by, 1, 1)),
+    substr(by, 2, nchar(by))
   )
 
   graphics::barplot(
-    height = result_matrix[, what],
+    height = result_matrix[, by],
     names = rownames(result_matrix),
     col = result_matrix[, get_reference_name()],
     ylab = what_label,
