@@ -9,7 +9,7 @@ poss_identify_sois <- function(eval_matrix,
     score(vert_matrix = vert_matrix) %>%
     intervals() %>%
     reference() %>%
-    assess(by = by) %>%
+    poss_assess(by = by) %>%
     filter_soi(
       by = by,
       threshold = threshold
@@ -41,7 +41,7 @@ all_assessments <- function(eval_matrix,
     score(vert_matrix = vert_matrix) %>%
     intervals() %>%
     reference() %>%
-    assess(by = "all") %>%
+    poss_assess(by = "all") %>%
     geom_assess(by = "all")
 
 }

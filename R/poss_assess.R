@@ -1,6 +1,6 @@
 
 
-assess <- function(interval_matrix,
+poss_assess <- function(interval_matrix,
                    range_columns = NA,
                    reference_column = NA,
                    by = c("neutral"),
