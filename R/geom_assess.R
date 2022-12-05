@@ -1,4 +1,30 @@
 
+#' Geometric assessment of solutions
+#'
+#' @param eval_matrix the evaluation matrix. It is a m by n matrix with
+#' entries eij where it represents the evaluation provided to solution i
+#' in the criteria j.
+#' @param vert_matrix the vertices matrix. It is an n by n matrix
+#' with the coordinates of the vertices of the polyhedron corresponding to the 
+#' weights in the columns. If 'NA' then it is assumed that the criteria follow a
+#' decreasing order of importance, that is, with criterion 1 more important
+#' than criterion 2, and so on.
+#' @param crit_columns the column names corresponding to the criteria. It is 
+#' a character vector. If NA, then it is assumed that the names are those
+#' starting with "C". 
+#' @param reference_column the name of column corresponding to the reference
+#' solution.
+#' @param by the assessment indicators.
+#' @param append_output Whether the output is append (default) or not to the 
+#' input matrix.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' eval_mat <- create_eval_matrix_example()
+#' eval_mat %>% geom_assess()
+#' 
 geom_assess <- function(eval_matrix,
                         vert_matrix = NA,
                         crit_columns = NA,
@@ -57,7 +83,7 @@ geom_assess <- function(eval_matrix,
 
   result_matrix <- sapply(by, function(app) {
     m <- apply(e_matrix, MARGIN = 1, FUN = function(other_sol) {
-      return(compute_other_approach(
+      return(geom_compare(
         other_sol_eval = other_sol,
         ref_sol_eval = ref_sol_eval,
         vert_matrix = v_matrix,
@@ -79,22 +105,41 @@ geom_assess <- function(eval_matrix,
 }
 
 
-compute_other_approach <- function(other_sol_eval,
+
+#' Reference solution comparison
+#' 
+#' Calculates the degree to which a given solution outperforms the reference 
+#' solution.
+#'
+#' @param sol_eval A vector containing the solution evaluation in the extreme 
+#' points (vertices of the polyhedron of feasible weights).
+#' @param ref_sol_eval A vector containing the evaluations of the reference 
+#' solution in the extreme points (vertices of the polyhedron of feasible 
+#' weights).
+#' 
+#' @param vert_matrix The matrix of vertices coordinates.
+#' @param approach 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+geom_compare <- function(sol_eval,
                                    ref_sol_eval,
                                    vert_matrix,
                                    approach = "volume") {
   if (approach == "volume") {
-    volume_compare(ref_sol_eval, other_sol_eval, vert_matrix)
+    volume_compare(ref_sol_eval, sol_eval, vert_matrix)
   }
   else if (approach == "poss_volume") {
-    poss_volume_compare(ref_sol_eval, other_sol_eval, vert_matrix)
+    poss_volume_compare(ref_sol_eval, sol_eval, vert_matrix)
   } else if (approach == "vert_prop"){
-    vert_prop_compare(ref_sol_eval, other_sol_eval)
+    vert_prop_compare(ref_sol_eval, sol_eval)
   }
 }
 
 
-volume_compare <- function(ref_sol_eval, other_sol_eval, vert_matrix) {
+volume_compare <- function(ref_sol_eval, sol_eval, vert_matrix) {
 
   identity_matrix <- diag(length(ref_sol_eval))
 
@@ -104,7 +149,7 @@ volume_compare <- function(ref_sol_eval, other_sol_eval, vert_matrix) {
   )
 
   pol_other_sol <- SimplicialCubature::definePoly(
-    coef = other_sol_eval,
+    coef = sol_eval,
     k = identity_matrix
   )
 
@@ -123,18 +168,18 @@ volume_compare <- function(ref_sol_eval, other_sol_eval, vert_matrix) {
 
 
 
-poss_volume_compare <- function(ref_sol_eval, other_sol_eval, vert_matrix) {
+poss_volume_compare <- function(ref_sol_eval, sol_eval, vert_matrix) {
 
   return(
-    (volume_compare(ref_sol_eval, other_sol_eval, vert_matrix) + 1) / 2.
+    (volume_compare(ref_sol_eval, sol_eval, vert_matrix) + 1) / 2.
   )
 }
 
 
-vert_prop_compare <- function(ref_sol_eval, other_sol_eval, vert_matrix){
+vert_prop_compare <- function(ref_sol_eval, sol_eval, vert_matrix){
 
   return(
-    sum(other_sol_eval >= ref_sol_eval) / length(other_sol_eval)
+    sum(sol_eval >= ref_sol_eval) / length(sol_eval)
   )
 
 }
