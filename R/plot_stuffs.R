@@ -1,5 +1,26 @@
 
 
+#' Plots the score intervals of the solutions
+#'
+#' This function creates a graph of intervals representing the range of
+#' possible scores that each solution can achieve, i.e., based on the
+#' evaluations by criteria and the order of preference of these criteria.
+#'
+#' @param interval_matrix A matrix of m rows containing at least three columns:
+#' LB, UB and REF, corresponding to the lower bound of the interval, the upper
+#' bound, and the type of solution (reference solution = 1, other solution = 0),
+#' respectively.
+#' @param highlight_reference Whether to highlight the reference solution
+#' (default) or not.
+#'
+#' @return A segment plot with scores on the x-axis and solutions on the y-axis.
+#' @export
+#'
+#' @examples
+#' create_eval_matrix_example() %>%
+#' assess_all() %>%
+#' plot_intervals()
+#'
 plot_intervals <- function(interval_matrix,
                            highlight_reference = TRUE) {
   sol_labels <- rownames(interval_matrix)
@@ -49,7 +70,26 @@ plot_intervals <- function(interval_matrix,
 
 
 
-plot_comparison <- function(result_matrix, by) {
+#' Plots the assessments of the solutions
+#'
+#' This function creates a bar plot corresponding to the solution assessments.
+#'
+#' @param result_matrix A matrix of m rows containing at least two columns:
+#' the assessment indicator (e,g. neutral, volume, etc) and 'REF' (type of
+#' solution, where is 1 for the reference solution and 0 for the rest).
+#' @param by The assessment indicator (e.g. neutral,
+#' pessimistic, optimistic, volume, poss_volume, vert_prop, etc.).
+#'
+#' @return A bar plot with assessment values on the y-axis
+#' and solutions on the x-axis.
+#' @export
+#'
+#' @examples
+#' create_eval_matrix_example() %>%
+#' assess_all() %>%
+#' plot_assessment(by="neutral")
+#'
+plot_assessment <- function(result_matrix, by) {
   what_label <- paste0(
     toupper(substr(by, 1, 1)),
     substr(by, 2, nchar(by))

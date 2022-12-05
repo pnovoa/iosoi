@@ -3,7 +3,7 @@
 #' Possibility approach for the identification of the solution of interest
 #'
 #' Identify the solutions of interest of a multi-criteria decision problem
-#' by applying the possibilistic approach of Torres et al. (2021).
+#' by applying a possibility approach by Torres et al. (2021).
 #'
 #' @param eval_matrix the evaluation matrix. It is a m by n matrix with
 #' entries eij where it represents the evaluation provided to solution i
@@ -47,6 +47,37 @@ poss_identify_sois <- function(eval_matrix,
 }
 
 
+
+#' Geomtric approach for the identification of the solution of interest
+#'
+#' Identify the solutions of interest of a multi-criteria decision problem
+#' by applying a geometric assessment approach.
+#'
+#' @param eval_matrix the evaluation matrix. It is a m by n matrix with
+#' entries eij where it represents the evaluation provided to solution i
+#' in the criteria j.
+#' @param vert_matrix the coordinates of the vertices. It is an n by n matrix
+#' with the coordinates of the vertices of the polyhedron corresponding to the w
+#' eights in the columns. If NA then it is assumed that the criteria follow a
+#' decreasing order of importance, that is, with criterion 1 more important
+#' than criterion 2, and so on.
+#' @param by the geometric assessment approach.
+#' It can take one of the following values: 'volume', 'poss_volume' (possibility
+#' from volume), or 'vert_prop' (vertex proportion).
+#' @param threshold threshold to identify the solutions of interest.
+#' In particular, a filter is applied on the assessment value of each solution
+#' so that only those with values greater than or equal to threshold will
+#' appear in the returned matrix.
+#'
+#' @return A matrix is returned that includes, for each solution, the interval
+#' of scores, whether it is the reference solution or not, and the assessments
+#' corresponding to the geometric approach.
+#' @export
+#'
+#' @examples
+#' eval_mat <- create_eval_matrix_example()
+#' eval_mat %>% geom_identify_sois()
+#'
 geom_identify_sois <- function(eval_matrix,
                                vert_matrix = NA,
                                by = "volume",
@@ -64,6 +95,32 @@ geom_identify_sois <- function(eval_matrix,
     )
 }
 
+
+
+#' Performs all solution assessments
+#'
+#' This function evaluates solutions according to all existing approaches.
+#' That is, both the possibilistic ones proposed in Torres et al 2021, as
+#' well as the geometric ones.
+#'
+#' @param eval_matrix the evaluation matrix. It is a m by n matrix with
+#' entries eij where it represents the evaluation provided to solution i
+#' in the criteria j.
+#' @param vert_matrix the coordinates of the vertices. It is an n by n matrix
+#' with the coordinates of the vertices of the polyhedron corresponding to the w
+#' eights in the columns. If NA then it is assumed that the criteria follow a
+#' decreasing order of importance, that is, with criterion 1 more important
+#' than criterion 2, and so on.
+#'
+#' @return A matrix is returned that includes, for each solution, the interval
+#' of scores, whether it is the reference solution or not, and the degrees
+#' of possibility corresponding to the decision maker's attitude.
+#' @export
+#'
+#' @examples
+#' eval_mat <- create_eval_matrix_example()
+#' eval_mat %>% assess_all()
+#'
 assess_all <- function(eval_matrix,
                               vert_matrix = NA){
 
@@ -76,14 +133,3 @@ assess_all <- function(eval_matrix,
 
 }
 
-
-
-identify_top_sois <- function(eval_matrix,
-                              crit_preference,
-                              by = "neutral",
-                              n) {
-
-
-
-
-}
