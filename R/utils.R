@@ -159,6 +159,26 @@ generate_polyhedron_vertices <- function(ncrit) {
 }
 
 
+#' Polyhedron Vertices from Constraints
+#'
+#' This function generates, from a system of constraints on the weights,
+#' the vertices of the polyhedron induced by such a system. As input it
+#' requires an n by n matrix A and an n-dimensional vector b such that
+#' Aw <= b. As a result, an n by n matrix is returned, whose columns are
+#' the vertices of the polyhedron.
+#'
+#' @param A_matrix a n by n matrix (coefficient matrix)
+#' @param b_vector a n-dimensional vector (right hand side)
+#'
+#' @return an n by n matrix with the vertices of the induced polyhedron
+#' in the columns
+#' @export
+#'
+#' @examples
+#' A <- matrix(c(0, 0, -1, -1, 1, 0, 0, -1, 1), byrow = TRUE, nrow = 3)
+#' b <- c(0, 0, 0)
+#' vertify(A,b)
+#'
 vertify <- function(A_matrix, b_vector) {
   V <- rcdd::scdd(
     rcdd::makeH(

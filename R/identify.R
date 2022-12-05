@@ -1,5 +1,35 @@
 
 
+#' Possibility approach for the identification of the solution of interest
+#'
+#' Identify the solutions of interest of a multi-criteria decision problem
+#' by applying the possibilistic approach of Torres et al. (2021).
+#'
+#' @param eval_matrix the evaluation matrix. It is a m by n matrix with
+#' entries eij where it represents the evaluation provided to solution i
+#' in the criteria j.
+#' @param vert_matrix the coordinates of the vertices. It is an n by n matrix
+#' with the coordinates of the vertices of the polyhedron corresponding to the w
+#' eights in the columns. If NA then it is assumed that the criteria follow a
+#' decreasing order of importance, that is, with criterion 1 more important
+#' than criterion 2, and so on.
+#' @param by the attitude adopted by the decision-maker in order to assess each
+#' solution. It can take one of the following values: neutral (default),
+#' optimistic, or pessimistic.
+#' @param threshold threshold to identify the solutions of interest.
+#' In particular, a filter is applied on the attitude value of each solution
+#' so that only those with values greater than or equal to threshold will
+#' appear in the returned matrix.
+#'
+#' @return A matrix is returned that includes, for each solution, the interval
+#' of scores, whether it is the reference solution or not, and the degrees
+#' of possibility corresponding to the decision maker's attitude.
+#' @export
+#'
+#' @examples
+#' eval_mat <- create_eval_matrix_example()
+#' eval_mat %>% poss_identify_sois()
+#'
 poss_identify_sois <- function(eval_matrix,
                           vert_matrix = NA,
                           by = "neutral",
@@ -34,7 +64,7 @@ geom_identify_sois <- function(eval_matrix,
     )
 }
 
-all_assessments <- function(eval_matrix,
+assess_all <- function(eval_matrix,
                               vert_matrix = NA){
 
   eval_matrix %>%
