@@ -1,29 +1,41 @@
 
 #' Geometric assessment of solutions
 #'
-#' @param eval_matrix the evaluation matrix. It is a m by n matrix with
-#' entries eij where it represents the evaluation provided to solution i
-#' in the criteria j.
-#' @param vert_matrix the vertices matrix. It is an n by n matrix
-#' with the coordinates of the vertices of the polyhedron corresponding to the 
-#' weights in the columns. If 'NA' then it is assumed that the criteria follow a
-#' decreasing order of importance, that is, with criterion 1 more important
-#' than criterion 2, and so on.
+#' @param eval_matrix the evaluation matrix. It is a \eqn{m \times n} matrix with
+#' entries \eqn{e_{ij}} where it represents the evaluation given to solution 
+#' \eqn{i} in the criterion \eqn{j}.
+#' @param vert_matrix the vertices matrix. It is an \eqn{n \times n} matrix
+#' with the coordinates of the vertices of the polyhedron of the feasible 
+#' weights in the columns. If \code{NA} then it is assumed that the criteria 
+#' follow a decreasing order of importance, that is, with criterion 1 more 
+#' important than criterion 2, and so on.
 #' @param crit_columns the column names corresponding to the criteria. It is 
-#' a character vector. If NA, then it is assumed that the names are those
-#' starting with "C". 
+#' a character vector. If \code{NA}, then it is assumed that the names are those
+#' starting with the \code{'C'} prefix. 
 #' @param reference_column the name of column corresponding to the reference
 #' solution.
-#' @param by the assessment indicators.
+#' @param by a vector indicating the assessment indicators to compute. It can
+#' be one or the combination of the following values:
+#' \describe{
+#'   \item{\code{'volume'}}{Normalized volume difference}
+#'   \item{\code{'poss_volume'}}{Normalized volume difference in the range 
+#'   \eqn{[0, 1]}.}
+#'   \item{\code{'vert_prop'}}{Proportion of vertices where the solution 
+#'   is greater or equal than the reference solution}
+#'   \item{\code{'all'}}{For computing the three above indicators.}
+#' }
+#' 
 #' @param append_output Whether the output is append (default) or not to the 
 #' input matrix.
 #'
-#' @return
+#' @return A m by p matrix with the computed assessments at the columns
 #' @export
 #'
 #' @examples
-#' eval_mat <- create_eval_matrix_example()
-#' eval_mat %>% geom_assess()
+#' create_eval_matrix_example(10, 3) %>%
+#' intervals() %>% 
+#' reference() %>%
+#' geom_assess()
 #' 
 geom_assess <- function(eval_matrix,
                         vert_matrix = NA,
@@ -84,7 +96,7 @@ geom_assess <- function(eval_matrix,
   result_matrix <- sapply(by, function(app) {
     m <- apply(e_matrix, MARGIN = 1, FUN = function(other_sol) {
       return(geom_compare(
-        other_sol_eval = other_sol,
+        sol_eval = other_sol,
         ref_sol_eval = ref_sol_eval,
         vert_matrix = v_matrix,
         approach = app
@@ -108,8 +120,9 @@ geom_assess <- function(eval_matrix,
 
 #' Reference solution comparison
 #' 
-#' Calculates the degree to which a given solution outperforms the reference 
-#' solution.
+#' Compute the degree to which a given solution outperforms the reference 
+#' solution. It acts as a function selector for the available geometric 
+#' approaches.
 #'
 #' @param sol_eval A vector containing the solution evaluation in the extreme 
 #' points (vertices of the polyhedron of feasible weights).
@@ -118,28 +131,74 @@ geom_assess <- function(eval_matrix,
 #' weights).
 #' 
 #' @param vert_matrix The matrix of vertices coordinates.
-#' @param approach 
+#' @param approach The geometric approach used to compare the solutions. It can
+#' take one of the following character values: 
+#' \describe{
+#'   \item{\code{'volume'}}{Normalized volume difference}
+#'   \item{\code{'poss_volume'}}{Normalized volume difference in the range 
+#'   \eqn{[0, 1]}.}
+#'   \item{\code{'vert_prop'}}{Proportion of vertices where the solution 
+#'   is greater or equal than the reference solution}
+#' }
 #'
-#' @return
+#' @return A numeric value corresponding to the superiority degree of solution
+#' 'sol_eval' over 'ref_sol_eval'.
 #' @export
 #'
 #' @examples
+#' vert_mat <- generate_polyhedron_vertices(3)
+#' ref_sol_eval <- runif(3)
+#' sol_eval <- runif(3)
+#' geom_compare(sol_eval, ref_sol_eval, vert_mat)
+#' 
 geom_compare <- function(sol_eval,
                                    ref_sol_eval,
                                    vert_matrix,
                                    approach = "volume") {
   if (approach == "volume") {
-    volume_compare(ref_sol_eval, sol_eval, vert_matrix)
+    volume_compare(sol_eval, ref_sol_eval, vert_matrix)
   }
   else if (approach == "poss_volume") {
-    poss_volume_compare(ref_sol_eval, sol_eval, vert_matrix)
+    poss_volume_compare(sol_eval, ref_sol_eval, vert_matrix)
   } else if (approach == "vert_prop"){
-    vert_prop_compare(ref_sol_eval, sol_eval)
+    vert_prop_compare(sol_eval, ref_sol_eval)
   }
 }
 
 
-volume_compare <- function(ref_sol_eval, sol_eval, vert_matrix) {
+
+#' Volume approach to compare against the reference solution
+#' 
+#' This function compute the superiority degree of a given solution against the 
+#' reference solution. This degree is compute based on the notion of the 
+#' integral of a linear function (scoring function of a given solution) over 
+#' a simplex (polyhedron of feasible weights). Specifically, it returns the 
+#' normalized difference of the integrals over the sum of both integrals. Thus, 
+#' the range of values is \eqn{[-1, 1]} with \eqn{-1} indicating that the 
+#' solution is definitely worse than the reference solution, and \eqn{1} 
+#' indicating the opposite. In particular, if the result is \eqn{0}, it means 
+#' that the solution in question is equal to the reference solution.
+#'
+#' @param ref_sol_eval a vector with the reference solution evaluations at 
+#' extreme points (vertices of the polyhedron of feasible weights)
+#' @param sol_eval a vector with the reference solution evaluations at extreme
+#' points (vertices of the polyhedron of feasible weights)
+#' @param vert_matrix a m by m matrix containing the vertices of the 
+#' polyhedron of feasible weights. The coordinates of these vertices must be 
+#' in the columns of the matrix. 
+#'
+#' @return A numerical value in the range of \eqn{[-1, 1]} corresponding to the 
+#' superiority of solution \code{sol_eval} over the reference solution 
+#' (\code{ref_sol_eval})
+#' @export
+#'
+#' @examples
+#' vert_mat <- generate_polyhedron_vertices(3)
+#' ref_sol_eval <- runif(3)
+#' sol_eval <- runif(3)
+#' volume_compare(sol_eval, ref_sol_eval, vert_mat)
+#' 
+volume_compare <- function(sol_eval, ref_sol_eval, vert_matrix) {
 
   identity_matrix <- diag(length(ref_sol_eval))
 
@@ -168,15 +227,15 @@ volume_compare <- function(ref_sol_eval, sol_eval, vert_matrix) {
 
 
 
-poss_volume_compare <- function(ref_sol_eval, sol_eval, vert_matrix) {
+poss_volume_compare <- function(sol_eval, ref_sol_eval, vert_matrix) {
 
   return(
-    (volume_compare(ref_sol_eval, sol_eval, vert_matrix) + 1) / 2.
+    (volume_compare(sol_eval, ref_sol_eval, vert_matrix) + 1) / 2.
   )
 }
 
 
-vert_prop_compare <- function(ref_sol_eval, sol_eval, vert_matrix){
+vert_prop_compare <- function(sol_eval, ref_sol_eval, vert_matrix){
 
   return(
     sum(sol_eval >= ref_sol_eval) / length(sol_eval)

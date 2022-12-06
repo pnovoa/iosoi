@@ -100,7 +100,7 @@ geom_identify_sois <- function(eval_matrix,
 #' Performs all solution assessments
 #'
 #' This function evaluates solutions according to all existing approaches.
-#' That is, both the possibilistic ones proposed in Torres et al 2021, as
+#' That is, both the possibility ones proposed in Torres et al (2021), as
 #' well as the geometric ones.
 #'
 #' @param eval_matrix the evaluation matrix. It is a m by n matrix with
