@@ -1,4 +1,25 @@
 
+#' Identify the reference solution
+#'
+#' @param interval_matrix an \eqn{n \times p} matrix (with \eqn{p \geq 2}) 
+#' containing at least two columns with names \code{'LB'} and \code{'UB'}.
+#' @param sel_fun the selection criterion function. By default is 
+#' \code{max_lower_bound}, which select the solution with the maximum lower 
+#' bound (\code{LB}) as the reference solution.
+#' @param append_output Whether or not the result is append to the input matrix 
+#' \code{interval_matrix}. It is \code{TRUE} by default.
+#'
+#' @return a matrix with at least one column (named as \code{'REF'}) with 1 for
+#' the reference solution and 0 for the rest.
+#' 
+#' @export
+#'
+#' @examples
+#' create_eval_matrix_example(10, 3) %>%
+#'    score() %>% 
+#'    intervals() %>%
+#'    reference()
+#' 
 reference <- function(interval_matrix,
                       sel_fun = max_lower_bound,
                       append_output = TRUE) {
