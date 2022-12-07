@@ -6,16 +6,16 @@
 #' by applying a possibility approach by Torres et al. (2021).
 #'
 #' @param eval_matrix the evaluation matrix. It is a \eqn{m \times n} matrix with
-#' entries eij where it represents the evaluation provided to solution i
-#' in the criteria j.
-#' @param vert_matrix the coordinates of the vertices. It is an n by n matrix
-#' with the coordinates of the vertices of the polyhedron corresponding to the
-#' weights in the columns. If \code{NA} then it is assumed that the criteria
-#' follow a decreasing order of importance, that is, with criterion 1 more
-#' important than criterion 2, and so on.
+#' entries \eqn{e_{ij}}, corresponding to the evaluation of solution \eqn{i}
+#' in the criteria \eqn{j}.
+#' @param vert_matrix the coordinates of the vertices. It is a \eqn{n \times n} 
+#' matrix with the coordinates of the vertices of the polyhedron of the feasible
+#' weights located at the columns. If \code{NA} then it is assumed that the 
+#' criteria follow a decreasing order of importance, that is, with criterion 
+#' 1 more important than criterion 2, and so on.
 #' @param by the attitude adopted by the decision-maker in order to assess each
-#' solution. It can take one of the following values: neutral (default),
-#' optimistic, or pessimistic.
+#' solution. It can take one of the following values: \code{'neutral'} (default),
+#' \code{'optimistic'}, or \code{'pessimistic'}.
 #' @param threshold threshold to identify the solutions of interest.
 #' In particular, a filter is applied on the attitude value of each solution
 #' so that only those with values greater than or equal to threshold will
@@ -47,22 +47,22 @@ poss_identify_sois <- function(eval_matrix,
 
 
 
-#' Geomtric approach for the identification of the solution of interest
+#' Geometric approach for the identification of the solution of interest
 #'
 #' Identify the solutions of interest of a multi-criteria decision problem
 #' by applying a geometric assessment approach.
 #'
-#' @param eval_matrix the evaluation matrix. It is a m by n matrix with
-#' entries eij where it represents the evaluation provided to solution i
-#' in the criteria j.
-#' @param vert_matrix the coordinates of the vertices. It is an n by n matrix
-#' with the coordinates of the vertices of the polyhedron corresponding to the w
-#' eights in the columns. If NA then it is assumed that the criteria follow a
-#' decreasing order of importance, that is, with criterion 1 more important
-#' than criterion 2, and so on.
+#' @param eval_matrix the evaluation matrix. It is a \eqn{m \times n} matrix with
+#' entries \eqn{e_{ij}}, corresponding to the evaluation of solution \eqn{i}
+#' in the criteria \eqn{j}.
+#' @param vert_matrix the coordinates of the vertices. It is a \eqn{n \times n} 
+#' matrix with the coordinates of the vertices of the polyhedron of the feasible
+#' weights located at the columns. If \code{NA} then it is assumed that the 
+#' criteria follow a decreasing order of importance, that is, with criterion 
+#' 1 more important than criterion 2, and so on.
 #' @param by the geometric assessment approach.
-#' It can take one of the following values: 'volume', 'poss_volume' (possibility
-#' from volume), or 'vert_prop' (vertex proportion).
+#' It can take one of the following values: \code{'volume'}, 
+#' \code{'poss_volume'}, or \code{'vert_prop'}.
 #' @param threshold threshold to identify the solutions of interest.
 #' In particular, a filter is applied on the assessment value of each solution
 #' so that only those with values greater than or equal to threshold will
@@ -100,14 +100,14 @@ geom_identify_sois <- function(eval_matrix,
 #' That is, both the possibility ones proposed in Torres et al (2021), as
 #' well as the geometric ones.
 #'
-#' @param eval_matrix the evaluation matrix. It is a m by n matrix with
-#' entries eij where it represents the evaluation provided to solution i
-#' in the criteria j.
-#' @param vert_matrix the coordinates of the vertices. It is an n by n matrix
-#' with the coordinates of the vertices of the polyhedron corresponding to the w
-#' eights in the columns. If NA then it is assumed that the criteria follow a
-#' decreasing order of importance, that is, with criterion 1 more important
-#' than criterion 2, and so on.
+#' @param eval_matrix the evaluation matrix. It is a \eqn{m \times n} matrix with
+#' entries \eqn{e_{ij}}, corresponding to the evaluation of solution \eqn{i}
+#' in the criteria \eqn{j}.
+#' @param vert_matrix the coordinates of the vertices. It is a \eqn{n \times n} 
+#' matrix with the coordinates of the vertices of the polyhedron of the feasible
+#' weights located at the columns. If \code{NA} then it is assumed that the 
+#' criteria follow a decreasing order of importance, that is, with criterion 
+#' 1 more important than criterion 2, and so on.
 #'
 #' @return A matrix is returned that includes, for each solution, the interval
 #' of scores, whether it is the reference solution or not, and the degrees

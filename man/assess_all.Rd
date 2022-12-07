@@ -7,15 +7,15 @@
 assess_all(eval_matrix, vert_matrix = NA)
 }
 \arguments{
-\item{eval_matrix}{the evaluation matrix. It is a m by n matrix with
-entries eij where it represents the evaluation provided to solution i
-in the criteria j.}
+\item{eval_matrix}{the evaluation matrix. It is a \eqn{m \times n} matrix with
+entries \eqn{e_{ij}}, corresponding to the evaluation of solution \eqn{i}
+in the criteria \eqn{j}.}
 
-\item{vert_matrix}{the coordinates of the vertices. It is an n by n matrix
-with the coordinates of the vertices of the polyhedron corresponding to the w
-eights in the columns. If NA then it is assumed that the criteria follow a
-decreasing order of importance, that is, with criterion 1 more important
-than criterion 2, and so on.}
+\item{vert_matrix}{the coordinates of the vertices. It is a \eqn{n \times n} 
+matrix with the coordinates of the vertices of the polyhedron of the feasible
+weights located at the columns. If \code{NA} then it is assumed that the 
+criteria follow a decreasing order of importance, that is, with criterion 
+1 more important than criterion 2, and so on.}
 }
 \value{
 A matrix is returned that includes, for each solution, the interval
