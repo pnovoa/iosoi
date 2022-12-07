@@ -1,7 +1,7 @@
 
 
 #' Automatic names for solutions
-#' 
+#'
 #' It generates names for the solutions consecutively.
 #'
 #' @param nsol The number of solutions.
@@ -22,7 +22,7 @@ get_solutions_prefix <- function() {
 }
 
 #' Automatic names for criteria
-#' 
+#'
 #' It generates names for the criteria consecutively.
 #'
 #' @param ncrit The number of criteria
@@ -50,7 +50,7 @@ get_eval_vertex_prefix <- function() {
 #' Generation of the column names for the vertex scores
 #'
 #' @param colum_names a character vector containing several column names
-#' @param prefix the prefix used to denote the names of the columns 
+#' @param prefix the prefix used to denote the names of the columns
 #' corresponding to vertex scores
 #'
 #' @return the column names of the vertices scores
@@ -80,29 +80,29 @@ get_range_names <- function() {
 }
 
 
-#' Decision-maker attitudes 
+#' Decision-maker attitudes
 #'
-#' @return a 3-dimensional character vector with the names of 
-#' the decision-maker attitudes. These attitudes are used for assessing the 
+#' @return a 3-dimensional character vector with the names of
+#' the decision-maker attitudes. These attitudes are used for assessing the
 #' solutions from the possibility approach of Torres et al (2021).
-get_poss_approaches <- function(){
-
+get_poss_approaches <- function() {
   return(
-    c("optimistic",
+    c(
+      "optimistic",
       "neutral",
       "pessimistic"
-      )
+    )
   )
 }
 
 #' Geometric approaches
 #'
-#' @return a 3-dimensional character vector with the names of 
+#' @return a 3-dimensional character vector with the names of
 #' the geometric approaches used to assess the solutions.
-get_geom_approaches <- function(){
-
+get_geom_approaches <- function() {
   return(
-    c("volume",
+    c(
+      "volume",
       "poss_volume",
       "vert_prop"
     )

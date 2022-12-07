@@ -5,14 +5,14 @@
 #' Identify the solutions of interest of a multi-criteria decision problem
 #' by applying a possibility approach by Torres et al. (2021).
 #'
-#' @param eval_matrix the evaluation matrix. It is a m by n matrix with
+#' @param eval_matrix the evaluation matrix. It is a \eqn{m \times n} matrix with
 #' entries eij where it represents the evaluation provided to solution i
 #' in the criteria j.
 #' @param vert_matrix the coordinates of the vertices. It is an n by n matrix
-#' with the coordinates of the vertices of the polyhedron corresponding to the w
-#' eights in the columns. If NA then it is assumed that the criteria follow a
-#' decreasing order of importance, that is, with criterion 1 more important
-#' than criterion 2, and so on.
+#' with the coordinates of the vertices of the polyhedron corresponding to the
+#' weights in the columns. If \code{NA} then it is assumed that the criteria
+#' follow a decreasing order of importance, that is, with criterion 1 more
+#' important than criterion 2, and so on.
 #' @param by the attitude adopted by the decision-maker in order to assess each
 #' solution. It can take one of the following values: neutral (default),
 #' optimistic, or pessimistic.
@@ -31,16 +31,15 @@
 #' eval_mat %>% poss_identify_sois()
 #'
 poss_identify_sois <- function(eval_matrix,
-                          vert_matrix = NA,
-                          by = "neutral",
-                          threshold = 0.0) {
-
+                               vert_matrix = NA,
+                               by = "neutral",
+                               threshold = 0.0) {
   eval_matrix %>%
     score(vert_matrix = vert_matrix) %>%
     intervals() %>%
     reference() %>%
     poss_assess(by = by) %>%
-    filter_soi(
+    filter_sois(
       by = by,
       threshold = threshold
     )
@@ -82,14 +81,12 @@ geom_identify_sois <- function(eval_matrix,
                                vert_matrix = NA,
                                by = "volume",
                                threshold = 0.0) {
-
-
   eval_matrix %>%
     score(vert_matrix = vert_matrix) %>%
     intervals() %>%
     reference() %>%
     geom_assess(by = by) %>%
-    filter_soi(
+    filter_sois(
       by = by,
       threshold = threshold
     )
@@ -122,14 +119,11 @@ geom_identify_sois <- function(eval_matrix,
 #' eval_mat %>% assess_all()
 #'
 assess_all <- function(eval_matrix,
-                              vert_matrix = NA){
-
+                       vert_matrix = NA) {
   eval_matrix %>%
     score(vert_matrix = vert_matrix) %>%
     intervals() %>%
     reference() %>%
     poss_assess(by = "all") %>%
     geom_assess(by = "all")
-
 }
-

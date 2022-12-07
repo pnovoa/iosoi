@@ -7,8 +7,8 @@
 get_poss_approaches()
 }
 \value{
-a 3-dimensional character vector with the names of 
-the decision-maker attitudes. These attitudes are used for assessing the 
+a 3-dimensional character vector with the names of
+the decision-maker attitudes. These attitudes are used for assessing the
 solutions from the possibility approach of Torres et al (2021).
 }
 \description{

@@ -8,9 +8,9 @@ plot_intervals(interval_matrix, highlight_reference = TRUE)
 }
 \arguments{
 \item{interval_matrix}{A matrix of m rows containing at least three columns:
-LB, UB and REF, corresponding to the lower bound of the interval, the upper
-bound, and the type of solution (reference solution = 1, other solution = 0),
-respectively.}
+\code{'LB'}, \code{'UB'} and \code{'REF'}, corresponding to the lower bound
+of the interval, the upper bound, and the type of solution (reference
+solution = 1, other solution = 0), respectively.}
 
 \item{highlight_reference}{Whether to highlight the reference solution
 (default) or not.}
@@ -25,7 +25,7 @@ evaluations by criteria and the order of preference of these criteria.
 }
 \examples{
 create_eval_matrix_example() \%>\%
-assess_all() \%>\%
-plot_intervals()
+  assess_all() \%>\%
+  plot_intervals()
 
 }

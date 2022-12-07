@@ -13,6 +13,6 @@ optimistic_attitude(x)
 return \eqn{x\sqrt{x}}
 }
 \description{
-This is an assistant function for computing the possibility degree as 
+This is an assistant function for computing the possibility degree as
 proposed by Torres et al (2021).
 }

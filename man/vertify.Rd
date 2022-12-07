@@ -25,6 +25,6 @@ the vertices of the polyhedron.
 \examples{
 A <- matrix(c(0, 0, -1, -1, 1, 0, 0, -1, 1), byrow = TRUE, nrow = 3)
 b <- c(0, 0, 0)
-vertify(A,b)
+vertify(A, b)
 
 }

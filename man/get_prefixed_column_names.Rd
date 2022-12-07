@@ -9,7 +9,7 @@ get_prefixed_column_names(colum_names, prefix = "VE_")
 \arguments{
 \item{colum_names}{a character vector containing several column names}
 
-\item{prefix}{the prefix used to denote the names of the columns 
+\item{prefix}{the prefix used to denote the names of the columns
 corresponding to vertex scores}
 }
 \value{

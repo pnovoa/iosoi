@@ -11,8 +11,8 @@ plot_assessment(result_matrix, by)
 the assessment indicator (e,g. neutral, volume, etc) and 'REF' (type of
 solution, where is 1 for the reference solution and 0 for the rest).}
 
-\item{by}{The assessment indicator (e.g. neutral,
-pessimistic, optimistic, volume, poss_volume, vert_prop, etc.).}
+\item{by}{The assessment indicator (e.g. \code{'neutral',
+'pessimistic', 'optimistic', 'volume', 'poss_volume', 'vert_prop'}, etc.).}
 }
 \value{
 A bar plot with assessment values on the y-axis
@@ -23,7 +23,7 @@ This function creates a bar plot corresponding to the solution assessments.
 }
 \examples{
 create_eval_matrix_example() \%>\%
-assess_all() \%>\%
-plot_assessment(by="neutral")
+  assess_all() \%>\%
+  plot_assessment(by = "neutral")
 
 }

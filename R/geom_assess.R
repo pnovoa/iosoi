@@ -33,10 +33,10 @@
 #'
 #' @examples
 #' create_eval_matrix_example(10, 3) %>%
-#' score() %>%
-#' intervals() %>%
-#' reference() %>%
-#' geom_assess()
+#'   score() %>%
+#'   intervals() %>%
+#'   reference() %>%
+#'   geom_assess()
 #'
 geom_assess <- function(eval_matrix,
                         vert_matrix = NA,
@@ -89,7 +89,7 @@ geom_assess <- function(eval_matrix,
     v_matrix <- vert_matrix
   }
 
-  if(by == "all"){
+  if (by == "all") {
     by <- get_geom_approaches()
   }
 
@@ -153,15 +153,14 @@ geom_assess <- function(eval_matrix,
 #' geom_compare(sol_eval, ref_sol_eval, vert_mat)
 #'
 geom_compare <- function(sol_eval,
-                                   ref_sol_eval,
-                                   vert_matrix,
-                                   approach = "volume") {
+                         ref_sol_eval,
+                         vert_matrix,
+                         approach = "volume") {
   if (approach == "volume") {
     volume_compare(sol_eval, ref_sol_eval, vert_matrix)
-  }
-  else if (approach == "poss_volume") {
+  } else if (approach == "poss_volume") {
     poss_volume_compare(sol_eval, ref_sol_eval, vert_matrix)
-  } else if (approach == "vert_prop"){
+  } else if (approach == "vert_prop") {
     sol_scores <- sol_eval %*% vert_matrix
     ref_sol_scores <- ref_sol_eval %*% vert_matrix
     best_vert_prop_compare(sol_scores, ref_sol_scores)
@@ -202,7 +201,6 @@ geom_compare <- function(sol_eval,
 #' volume_compare(sol_eval, ref_sol_eval, vert_mat)
 #'
 volume_compare <- function(sol_eval, ref_sol_eval, vert_matrix) {
-
   identity_matrix <- diag(length(ref_sol_eval))
 
   pol_ref_sol <- SimplicialCubature::definePoly(
@@ -230,7 +228,6 @@ volume_compare <- function(sol_eval, ref_sol_eval, vert_matrix) {
 
 
 poss_volume_compare <- function(sol_eval, ref_sol_eval, vert_matrix) {
-
   return(
     (volume_compare(sol_eval, ref_sol_eval, vert_matrix) + 1) / 2.
   )
@@ -261,10 +258,8 @@ poss_volume_compare <- function(sol_eval, ref_sol_eval, vert_matrix) {
 #' sol_scores <- runif(3)
 #' ref_sol_scores <- runif(3)
 #' best_vert_prop_compare(sol_scores, ref_sol_scores)
-best_vert_prop_compare <- function(sol_scores, ref_sol_scores){
-
+best_vert_prop_compare <- function(sol_scores, ref_sol_scores) {
   return(
     sum(sol_scores >= ref_sol_scores) / length(sol_scores)
   )
-
 }

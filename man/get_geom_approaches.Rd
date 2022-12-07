@@ -7,7 +7,7 @@
 get_geom_approaches()
 }
 \value{
-a 3-dimensional character vector with the names of 
+a 3-dimensional character vector with the names of
 the geometric approaches used to assess the solutions.
 }
 \description{

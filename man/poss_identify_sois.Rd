@@ -12,15 +12,15 @@ poss_identify_sois(
 )
 }
 \arguments{
-\item{eval_matrix}{the evaluation matrix. It is a m by n matrix with
+\item{eval_matrix}{the evaluation matrix. It is a \eqn{m \times n} matrix with
 entries eij where it represents the evaluation provided to solution i
 in the criteria j.}
 
 \item{vert_matrix}{the coordinates of the vertices. It is an n by n matrix
-with the coordinates of the vertices of the polyhedron corresponding to the w
-eights in the columns. If NA then it is assumed that the criteria follow a
-decreasing order of importance, that is, with criterion 1 more important
-than criterion 2, and so on.}
+with the coordinates of the vertices of the polyhedron corresponding to the
+weights in the columns. If \code{NA} then it is assumed that the criteria
+follow a decreasing order of importance, that is, with criterion 1 more
+important than criterion 2, and so on.}
 
 \item{by}{the attitude adopted by the decision-maker in order to assess each
 solution. It can take one of the following values: neutral (default),

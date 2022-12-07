@@ -53,9 +53,9 @@ Geometric assessment of solutions
 }
 \examples{
 create_eval_matrix_example(10, 3) \%>\%
-score() \%>\%
-intervals() \%>\%
-reference() \%>\%
-geom_assess()
+  score() \%>\%
+  intervals() \%>\%
+  reference() \%>\%
+  geom_assess()
 
 }
