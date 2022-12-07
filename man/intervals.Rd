@@ -10,8 +10,8 @@ intervals(eval_at_vert_matrix, append_output = TRUE)
 \item{eval_at_vert_matrix}{An m by n matrix containing the scores of
 each of the m solutions (rows) at each of the n vertices (columns).}
 
-\item{append_output}{A boolean parameter indicating whether (or not) the
-results will be append to the input matrix.}
+\item{append_output}{A Boolean parameter indicating whether (or not) the
+results will be append to the input matrix. It is \code{TRUE} by default.}
 }
 \value{
 An m by 2 matrix containing the lower bound (LB) and

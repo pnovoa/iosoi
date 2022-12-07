@@ -1,14 +1,53 @@
 
-
+#' Possibility assessment of solutions
+#' 
+#' This function computes, for each solution, the possibility degree of being 
+#' superior than the reference solution.
+#'
+#' @param interval_matrix a \eqn{m \times p (p \geq 3)} matrix containing at 
+#' least three columns corresponding to the interval lower bound, interval 
+#' upper bound and the type of solution, respectively. Each row corresponds 
+#' to a solution. 
+#' @param interval_columns a 2-dimensional vector containing the names of the 
+#' matrix column corresponding to lower and upper bounds of the intervals. If 
+#' \code{NA}, then it will be assummed that the names are \code{'LB'} and 
+#' \code{'UB'}.
+#' @param reference_column the name of the matrix column corresponding to the
+#' type of solution. If \code{NA} then it will be assumed that the column is
+#' named as \code{'REF'}.
+#' @param reference_column the name of column corresponding to the reference
+#' solution.
+#' @param by a vector indicating the assessment indicators to compute. It can
+#' be one or the combination of the following:
+#' \describe{
+#'   \item{\code{'neutral'}}{Neutral attitude.}
+#'   \item{\code{'optimistic'}}{Optimistic attitude.}
+#'   \item{\code{'pessimistic'}}{Pessimistic attitude.}
+#'   \item{\code{'all'}}{For computing the three above indicators.}
+#' }
+#' @param append_output A Boolean value indicating whether the output is 
+#' append (default) or not to the input matrix.
+#'
+#' @return A \eqn{m \times p (p \geq 1)} matrix with the computed assessments 
+#' at the columns
+#' @export
+#'
+#' @examples
+#' create_eval_matrix_example(10, 3) %>%
+#' score() %>%
+#' intervals() %>%
+#' reference() %>%
+#' poss_assess()
+#'
 poss_assess <- function(interval_matrix,
-                   range_columns = NA,
+                   interval_columns = NA,
                    reference_column = NA,
                    by = c("neutral"),
                    append_output = TRUE) {
-  if (is.na(range_columns)) {
-    range_names <- get_range_names()
+  if (is.na(interval_columns)) {
+    interval_names <- get_range_names()
   } else {
-    range_names <- range_columns
+    interval_names <- interval_columns
   }
 
   if (is.na(reference_column)) {
@@ -18,7 +57,7 @@ poss_assess <- function(interval_matrix,
   }
 
 
-  int_matrix <- interval_matrix[, range_names]
+  int_matrix <- interval_matrix[, interval_names]
   ref_matrix <- interval_matrix[, ref_name]
   ref_sol_indx <- which.max(ref_matrix)
   ref_sol <- int_matrix[ref_sol_indx, ]

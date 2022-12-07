@@ -1,3 +1,4 @@
+
 generate_solutions_names <- function(nsol) {
   paste0(get_solutions_prefix(), 1:nsol)
 }
