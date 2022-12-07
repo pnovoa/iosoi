@@ -134,14 +134,41 @@ compute_possibility_degree <- function(A, B, attitude = "neutral") {
 }
 
 
+#' Neutral attitude
+#' 
+#' This is an assistant function for computing the possibility degree as 
+#' proposed by Torres et al (2021).
+#'
+#' @param x a numeric value
+#'
+#' @return return x
+#'
 neutral_attitude <- function(x) {
   return(x)
 }
 
+#' Pessimistic attitude
+#'
+#' This is an assistant function for computing the possibility degree as 
+#' proposed by Torres et al (2021).
+#'
+#' @param x a numeric value
+#'
+#' @return return the \eqn{\log(x)}
+#'
 pessimistic_attitude <- function(x) {
   return(log(x))
 }
 
+#' Optimistic attitude
+#' 
+#' This is an assistant function for computing the possibility degree as 
+#' proposed by Torres et al (2021).
+#'
+#' @param x a numeric value
+#'
+#' @return return \eqn{x\sqrt{x}}
+#'
 optimistic_attitude <- function(x) {
   return(x * sqrt(x))
 }

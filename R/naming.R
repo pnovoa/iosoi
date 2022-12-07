@@ -1,26 +1,59 @@
 
+
+#' Automatic names for solutions
+#' 
+#' It generates names for the solutions consecutively.
+#'
+#' @param nsol The number of solutions.
+#'
+#' @return A character vector of length \code{nsol}.
 generate_solutions_names <- function(nsol) {
   paste0(get_solutions_prefix(), 1:nsol)
 }
 
+
+#' Name prefix for criteria columns
+#'
+#' @return Return the prefix for the automatic names of solutions.
 get_solutions_prefix <- function() {
   return(
     "S"
   )
 }
 
+#' Automatic names for criteria
+#' 
+#' It generates names for the criteria consecutively.
+#'
+#' @param ncrit The number of criteria
+#'
+#' @return A character vector of length \code{ncrit}.
 generate_criteria_names <- function(ncrit) {
   paste0(get_criteria_prefix(), 1:ncrit)
 }
 
+#' Name prefix for criteria columns
+#'
+#' @return Return the prefix for the automatic names of criteria.
 get_criteria_prefix <- function() {
   return("C")
 }
 
+#' Name prefix for vertices score columns
+#'
+#' @return Return the prefix for the automatic names of vertices.
 get_eval_vertex_prefix <- function() {
   return("VE_")
 }
 
+
+#' Generation of the column names for the vertex scores
+#'
+#' @param colum_names a character vector containing several column names
+#' @param prefix the prefix used to denote the names of the columns 
+#' corresponding to vertex scores
+#'
+#' @return the column names of the vertices scores
 get_prefixed_column_names <- function(colum_names, prefix = "VE_") {
   grepl(
     paste0("^", prefix),
@@ -28,12 +61,18 @@ get_prefixed_column_names <- function(colum_names, prefix = "VE_") {
   )
 }
 
+#' Name of the reference solution column
+#'
+#' @return a character value
 get_reference_name <- function() {
   return(
     "REF"
   )
 }
 
+#' Names for the interval columns
+#'
+#' @return a 2-dimensional character vector
 get_range_names <- function() {
   return(
     c("LB", "UB")
@@ -41,6 +80,11 @@ get_range_names <- function() {
 }
 
 
+#' Decision-maker attitudes 
+#'
+#' @return a 3-dimensional character vector with the names of 
+#' the decision-maker attitudes. These attitudes are used for assessing the 
+#' solutions from the possibility approach of Torres et al (2021).
 get_poss_approaches <- function(){
 
   return(
@@ -51,7 +95,10 @@ get_poss_approaches <- function(){
   )
 }
 
-
+#' Geometric approaches
+#'
+#' @return a 3-dimensional character vector with the names of 
+#' the geometric approaches used to assess the solutions.
 get_geom_approaches <- function(){
 
   return(
