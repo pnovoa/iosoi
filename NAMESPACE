@@ -2,6 +2,7 @@
 
 export("%>%")
 export(assess_all)
+export(best_vert_prop_compare)
 export(compute_possibility_degree)
 export(create_eval_matrix_example)
 export(generate_polyhedron_vertices)

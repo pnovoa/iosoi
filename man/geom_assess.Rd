@@ -15,16 +15,16 @@ geom_assess(
 }
 \arguments{
 \item{eval_matrix}{the evaluation matrix. It is a \eqn{m \times n} matrix with
-entries \eqn{e_{ij}} where it represents the evaluation given to solution 
+entries \eqn{e_{ij}} where it represents the evaluation given to solution
 \eqn{i} in the criterion \eqn{j}.}
 
 \item{vert_matrix}{the vertices matrix. It is an \eqn{n \times n} matrix
-with the coordinates of the vertices of the polyhedron of the feasible 
-weights in the columns. If \code{NA} then it is assumed that the criteria 
-follow a decreasing order of importance, that is, with criterion 1 more 
+with the coordinates of the vertices of the polyhedron of the feasible
+weights in the columns. If \code{NA} then it is assumed that the criteria
+follow a decreasing order of importance, that is, with criterion 1 more
 important than criterion 2, and so on.}
 
-\item{crit_columns}{the column names corresponding to the criteria. It is 
+\item{crit_columns}{the column names corresponding to the criteria. It is
 a character vector. If \code{NA}, then it is assumed that the names are those
 starting with the \code{'C'} prefix.}
 
@@ -35,14 +35,14 @@ solution.}
 be one or the combination of the following values:
 \describe{
   \item{\code{'volume'}}{Normalized volume difference}
-  \item{\code{'poss_volume'}}{Normalized volume difference in the range 
+  \item{\code{'poss_volume'}}{Normalized volume difference in the range
   \eqn{[0, 1]}.}
-  \item{\code{'vert_prop'}}{Proportion of vertices where the solution 
+  \item{\code{'vert_prop'}}{Proportion of vertices where the solution
   is greater or equal than the reference solution}
   \item{\code{'all'}}{For computing the three above indicators.}
 }}
 
-\item{append_output}{Whether the output is append (default) or not to the 
+\item{append_output}{Whether the output is append (default) or not to the
 input matrix.}
 }
 \value{
@@ -54,7 +54,7 @@ Geometric assessment of solutions
 \examples{
 create_eval_matrix_example(10, 3) \%>\%
 score() \%>\%
-intervals() \%>\% 
+intervals() \%>\%
 reference() \%>\%
 geom_assess()
 

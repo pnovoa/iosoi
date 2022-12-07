@@ -7,22 +7,22 @@
 geom_compare(sol_eval, ref_sol_eval, vert_matrix, approach = "volume")
 }
 \arguments{
-\item{sol_eval}{A vector containing the solution evaluation in the extreme 
+\item{sol_eval}{A vector containing the solution evaluation in the extreme
 points (vertices of the polyhedron of feasible weights).}
 
-\item{ref_sol_eval}{A vector containing the evaluations of the reference 
-solution in the extreme points (vertices of the polyhedron of feasible 
+\item{ref_sol_eval}{A vector containing the evaluations of the reference
+solution in the extreme points (vertices of the polyhedron of feasible
 weights).}
 
 \item{vert_matrix}{The matrix of vertices coordinates.}
 
 \item{approach}{The geometric approach used to compare the solutions. It can
-take one of the following character values: 
+take one of the following character values:
 \describe{
   \item{\code{'volume'}}{Normalized volume difference}
-  \item{\code{'poss_volume'}}{Normalized volume difference in the range 
+  \item{\code{'poss_volume'}}{Normalized volume difference in the range
   \eqn{[0, 1]}.}
-  \item{\code{'vert_prop'}}{Proportion of vertices where the solution 
+  \item{\code{'vert_prop'}}{Proportion of vertices where the solution
   is greater or equal than the reference solution}
 }}
 }
@@ -31,8 +31,8 @@ A numeric value corresponding to the superiority degree of solution
 'sol_eval' over 'ref_sol_eval'.
 }
 \description{
-Compute the degree to which a given solution outperforms the reference 
-solution. It acts as a function selector for the available geometric 
+Compute the degree to which a given solution outperforms the reference
+solution. It acts as a function selector for the available geometric
 approaches.
 }
 \examples{
