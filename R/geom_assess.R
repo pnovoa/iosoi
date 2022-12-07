@@ -203,21 +203,27 @@ geom_compare <- function(sol_eval,
 volume_compare <- function(sol_eval, ref_sol_eval, vert_matrix) {
   identity_matrix <- diag(length(ref_sol_eval))
 
+  # Defining the polynomial (scoring function) of the reference solution
   pol_ref_sol <- SimplicialCubature::definePoly(
     coef = ref_sol_eval,
     k = identity_matrix
   )
 
+  # Defining the polynomial (scoring function) of the other solution
   pol_other_sol <- SimplicialCubature::definePoly(
     coef = sol_eval,
     k = identity_matrix
   )
 
+  # Computing the volume over the polyhedron of feasible weights for the 
+  # reference solution
   Vol_sol_ref <- SimplicialCubature::integrateSimplexPolynomial(
     p = pol_ref_sol,
     S = vert_matrix
   )$integral
 
+  # Computing the volume over the polyhedron of feasible weights for the 
+  # other solution
   Vol_other_sol <- SimplicialCubature::integrateSimplexPolynomial(
     p = pol_other_sol,
     S = vert_matrix
