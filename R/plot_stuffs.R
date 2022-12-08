@@ -79,6 +79,10 @@ plot_intervals <- function(interval_matrix,
 #' solution, where is 1 for the reference solution and 0 for the rest).
 #' @param by The assessment indicator (e.g. \code{'neutral',
 #' 'pessimistic', 'optimistic', 'volume', 'poss_volume', 'vert_prop'}, etc.).
+#' @param plot_title The plot title. If \code{NA}, then it is set to the
+#' value provided in \code{by}.
+#' @param ylabel The y-axis label. If \code{NA}, then it is set to the
+#' value provided in \code{by}.
 #'
 #' @return A bar plot with assessment values on the y-axis
 #' and solutions on the x-axis.
@@ -89,18 +93,28 @@ plot_intervals <- function(interval_matrix,
 #'   assess_all() %>%
 #'   plot_assessment(by = "neutral")
 #'
-plot_assessment <- function(result_matrix, by) {
+plot_assessment <- function(result_matrix, by, plot_title=NA, ylabel=NA) {
   what_label <- paste0(
     toupper(substr(by, 1, 1)),
     substr(by, 2, nchar(by))
   )
+  
+  p_title <- plot_title
+  if(is.na(plot_title)){
+    p_title <- what_label
+  }
+  
+  y_label <- ylabel
+  if(is.na(ylabel)){
+    y_label <- what_label
+  }
 
   graphics::barplot(
     height = result_matrix[, by],
     names = rownames(result_matrix),
     col = result_matrix[, get_reference_name()],
-    ylab = what_label,
+    ylab = y_label,
     xlab = "Solution",
-    main = what_label
+    main = p_title
   )
 }

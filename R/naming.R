@@ -108,3 +108,33 @@ get_geom_approaches <- function() {
     )
   )
 }
+
+
+#' Automatic names for the rows and columns of the evaluation matrix
+#' 
+#' This function automatically assigns names to the solutions (rows) and
+#' criteria (columns) of an evaluation matrix if they are not already set.
+#'
+#' @param eval_matrix the evaluation matrix
+#'
+#' @return the same matrix with names for its rows and columns.
+#' @export
+#'
+#' @examples
+#' E <- matrix(runif(15), byrow = TRUE, nrow = 5)
+#' E %>% name_eval_matrix()
+name_eval_matrix <- function(eval_matrix){
+  
+  ncrit <- ncol(eval_matrix)
+  nsol <- nrow(eval_matrix)
+  
+  if(is.null(colnames(eval_matrix))){
+    colnames(eval_matrix) <- generate_criteria_names(ncrit)
+  }
+  
+  if(is.null(rownames(eval_matrix))){
+    rownames(eval_matrix) <- generate_solutions_names(nsol)
+  }
+  
+  return(eval_matrix)
+}

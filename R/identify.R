@@ -34,7 +34,10 @@ poss_identify_sois <- function(eval_matrix,
                                vert_matrix = NA,
                                by = "neutral",
                                threshold = 0.0) {
+  
+  
   eval_matrix %>%
+    name_eval_matrix() %>%
     score(vert_matrix = vert_matrix) %>%
     intervals() %>%
     reference() %>%
@@ -82,6 +85,7 @@ geom_identify_sois <- function(eval_matrix,
                                by = "volume",
                                threshold = 0.0) {
   eval_matrix %>%
+    name_eval_matrix() %>%
     score(vert_matrix = vert_matrix) %>%
     intervals() %>%
     reference() %>%
@@ -121,6 +125,7 @@ geom_identify_sois <- function(eval_matrix,
 assess_all <- function(eval_matrix,
                        vert_matrix = NA) {
   eval_matrix %>%
+    name_eval_matrix() %>%
     score(vert_matrix = vert_matrix) %>%
     intervals() %>%
     reference() %>%

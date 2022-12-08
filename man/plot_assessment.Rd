@@ -4,7 +4,7 @@
 \alias{plot_assessment}
 \title{Plots the assessments of the solutions}
 \usage{
-plot_assessment(result_matrix, by)
+plot_assessment(result_matrix, by, plot_title = NA, ylabel = NA)
 }
 \arguments{
 \item{result_matrix}{A matrix of m rows containing at least two columns:
@@ -13,6 +13,12 @@ solution, where is 1 for the reference solution and 0 for the rest).}
 
 \item{by}{The assessment indicator (e.g. \code{'neutral',
 'pessimistic', 'optimistic', 'volume', 'poss_volume', 'vert_prop'}, etc.).}
+
+\item{plot_title}{The plot title. If \code{NA}, then it is set to the
+value provided in \code{by}.}
+
+\item{ylabel}{The y-axis label. If \code{NA}, then it is set to the
+value provided in \code{by}.}
 }
 \value{
 A bar plot with assessment values on the y-axis
