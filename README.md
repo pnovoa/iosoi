@@ -133,7 +133,7 @@ E %>%
   plot_intervals()
 ```
 
-<img src="man/figures/README-plots-1.png" width="100%" />
+<img src="man/figures/README-plots-1.png" width="70%" style="display: block; margin: auto;" />
 
 As expected, `S3` is excluded because its interval is clearly far to the
 left relative to `S2` (the reference solution highlighted with interval
@@ -153,4 +153,4 @@ E %>%
                   )
 ```
 
-<img src="man/figures/README-plots2-1.png" width="100%" />
+<img src="man/figures/README-plots2-1.png" width="70%" style="display: block; margin: auto;" />

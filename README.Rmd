@@ -119,7 +119,7 @@ The code then performs the analysis again but relaxes the threshold to $-1$
 to include all solutions in the final output. In this way the intervals of 
 all the solutions will be plotted.
 
-```{r plots}
+```{r plots, out.width="70%", fig.align='center'}
 E %>% 
   poss_identify_sois(by = "neutral", threshold = -1.0) %>%
   plot_intervals()
@@ -133,7 +133,7 @@ We can also plot any computed assessment indicator through a bar plot. For
 example, if we consider `poss_volume`, the following code show how to plot
 this indicator.
 
-```{r plots2}
+```{r plots2, out.width="70%", fig.align='center'}
 E %>% 
   geom_identify_sois(by = "poss_volume", threshold = 0.0) %>%
   plot_assessment(by = "poss_volume",
