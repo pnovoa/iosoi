@@ -86,14 +86,16 @@ assessments greater than $0$ will appear in the output.
 library(iosoi)
 # Evaluation matrix
 E <- matrix(c(5, 2, 3, 4, 4, 3, 1, 1, 5, 4, 2, 3, 4, 3, 2), byrow = TRUE, nrow = 5)
-# Identify SOIs from the possibility approach of Torres et al (2021).
+
+# Identifying SOIs from the possibility approach of Torres et al (2021).
 E %>% poss_identify_sois(by = "neutral", threshold = 0.0)
 #>    C1 C2 C3 VE_C1 VE_C2    VE_C3       LB UB REF   neutral
 #> S1  5  2  3     5   3.5 3.333333 3.333333  5   0 0.6666667
 #> S2  4  4  3     4   4.0 3.666667 3.666667  4   1 0.5000000
 #> S4  4  2  3     4   3.0 3.000000 3.000000  4   0 0.2500000
 #> S5  4  3  2     4   3.5 3.000000 3.000000  4   0 0.2500000
-# Identify SOIs from the geometric approach based on the volume
+
+# Identifying SOIs from the geometric approach based on the volume
 E %>% geom_identify_sois(by = "poss_volume", threshold = 0.0)
 #>    C1 C2 C3 VE_C1 VE_C2    VE_C3       LB       UB REF poss_volume
 #> S1  5  2  3     5   3.5 3.333333 3.333333 5.000000   0   0.5035461
