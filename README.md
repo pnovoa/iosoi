@@ -1,24 +1,36 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # iosoi (**I**dentifier **O**f **S**olution **O**f **I**nterest)
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
-The goal of *iosoi* is to provide an [R](https://www.r-project.org) implementation of the multi-criteria decision making approach proposed in:
+The goal of *iosoi* is to provide an [R](https://www.r-project.org)
+implementation of the multi-criteria decision making approach proposed
+in:
 
--   Torres, M., Pelta, D. A., Lamata, M. T., & Yager, R. R. (2021). An approach to identify solutions of interest from multi and many-objective optimization problems. *Neural Computing & Applications, 33*(7), 2471--2481. [doi:10.1007/s00521-020-05140-x](https://doi.org/10.1007/s00521-020-05140-x)
+- Torres, M., Pelta, D. A., Lamata, M. T., & Yager, R. R. (2021). An
+  approach to identify solutions of interest from multi and
+  many-objective optimization problems. *Neural Computing &
+  Applications, 33*(7), 2471–2481.
+  [doi:10.1007/s00521-020-05140-x](https://doi.org/10.1007/s00521-020-05140-x)
 
-It also includes alternative approaches for assessing the solutions from a geometric perspective.
+It also includes alternative approaches for assessing the solutions from
+a geometric perspective.
 
 Formally, iosoi helps to solve the following MCDM problem:
 
-Given a set of m solutions (alternatives) with evaluations on n criteria, and an order of preference among these criteria, **order the solutions according to their overall scores**. These overall scores are obtained through the linear combination of the evaluations and the weights of the criteria.
+Given a set of m solutions (alternatives) with evaluations on n
+criteria, and an order of preference among these criteria, **order the
+solutions according to their overall scores**. These overall scores are
+obtained through the linear combination of the evaluations and the
+weights of the criteria.
 
 ## Installation
 
-You can install the development version of *iosoi* from [GitHub](https://github.com/) with:
+You can install the development version of *iosoi* from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -34,7 +46,8 @@ library(iosoi)
 ## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+What is special about using `README.Rmd` instead of just `README.md`?
+You can include R chunks like so:
 
 ``` r
 summary(cars)
@@ -47,10 +60,15 @@ summary(cars)
 #>  Max.   :25.0   Max.   :120.00
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+You’ll still need to render `README.Rmd` regularly, to keep `README.md`
+up-to-date. `devtools::build_readme()` is handy for this. You could also
+use GitHub Actions to re-render `README.Rmd` every time you push. An
+example workflow can be found here:
+<https://github.com/r-lib/actions/tree/v1/examples>.
 
 You can also embed plots, for example:
 
-<img src="man/figures/README-pressure-1.png" width="100%"/>
+<img src="man/figures/README-pressure-1.png" width="100%" />
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+In that case, don’t forget to commit and push the resulting figure
+files, so they display on GitHub and CRAN.
