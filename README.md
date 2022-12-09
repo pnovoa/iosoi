@@ -44,18 +44,18 @@ set of criteria. As input data we have a set of $m$ solutions
 (alternatives) and their individual evaluations on each of the $n$
 criteria. Intuitively, this information can be arranged in the form of a
 matrix $E$ whose entries $e_{ij}$ correspond to the numerical evaluation
-that solution i has in criterion j. Additionally, we have an order of
-preference of the criteria by the decision maker. Without loss of
+that solution $i$ has in criterion $j$. Additionally, we have an order
+of preference of the criteria by the decision maker. Without loss of
 generality, it will be assumed that this order is decreasing as a
 function of the order of the criteria in the matrix $E$. That is, let
-$\lambda_j$ the $j-th$ criterion, then
+$\lambda_j$ the $j$-th criterion, then
 $\lambda_1 \succeq \lambda_2 ... \succeq \lambda_n$. Numerically, this
 information can be translated into variables representing non-negative
 weights associated with the criteria and with the additional condition
-of adding up to 1.
+of adding up to $1$.
 
-The following example is based on a problem of 5 solutions, 3 criteria
-and evaluation matrix:
+The following example is based on a problem of $5$ solutions, $3$
+criteria and evaluation matrix:
 
 $$ E_{5 \times 3} =
 \left(\begin{array}{cc} 
@@ -78,8 +78,8 @@ follows we will perform this task from both, the possibility approach by
 Torres et al. (2021) and a geometric approach based on the notion of the
 volume. In the case of possibility approach we will rely on the
 *neutral* attitude for computing the superiority degree of the solutions
-against the reference one. For both approach we set a threshold of $0$,
-which means that only those solutions with their corresponding
+against the reference one. For both approaches we set a threshold of
+$0$, which means that only those solutions with their corresponding
 assessments greater than $0$ will appear in the output.
 
 ``` r
@@ -130,14 +130,16 @@ the second case all were included.
 To understand why solution S3 is left out in the approach of Torres et
 al.  (2021) `iosoi` allows to plot the intervals (ranges of possible
 scores) of each solution. That is, in order to visually check the degree
-of overlapping of the solutions in relation to the reference one.  
-The code then performs the analysis again but relaxes the threshold to
-$-1$ to include all solutions in the final output. In this way the
-intervals of all the solutions will be plotted.
+of overlapping of the solutions in relation to the reference one. The
+code then performs the analysis again but relaxes the threshold to $-1$
+to include all solutions in the final output. In this way the intervals
+of all the solutions will be plotted.
 
 ``` r
 E %>% 
-  poss_identify_sois(by = "neutral", threshold = -1.0) %>%
+  poss_identify_sois(
+    by = "neutral", 
+    threshold = -1.0) %>%
   plot_intervals()
 ```
 
