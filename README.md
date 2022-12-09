@@ -84,6 +84,7 @@ assessments greater than $0$ will appear in the output.
 
 ``` r
 library(iosoi)
+
 # Evaluation matrix
 E <- matrix(c(5, 2, 3, 4, 4, 3, 1, 1, 5, 4, 2, 3, 4, 3, 2), byrow = TRUE, nrow = 5)
 E
