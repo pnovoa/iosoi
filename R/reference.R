@@ -25,15 +25,15 @@ reference <- function(interval_matrix,
                       append_output = TRUE) {
   range_names <- get_range_names()
 
-  if (sum(range_names %in% colnames(interval_matrix))) {
-    true_int_mat <- interval_matrix[, range_names]
-  } else {
-    true_int_mat <- interval_matrix
-  }
+  # if (sum(range_names %in% colnames(interval_matrix))) {
+  #   true_int_mat <- interval_matrix[, range_names]
+  # } else {
+  #   true_int_mat <- interval_matrix
+  # }
 
-  ref_sol_index <- sel_fun(true_int_mat)
+  ref_sol_index <- sel_fun(interval_matrix)
 
-  label_matrix <- matrix(rep(0, nrow(true_int_mat)), byrow = FALSE, ncol = 1)
+  label_matrix <- matrix(rep(0, nrow(interval_matrix)), byrow = FALSE, ncol = 1)
   label_matrix[ref_sol_index, 1] <- 1
   colnames(label_matrix) <- c(get_reference_name())
 
@@ -47,8 +47,16 @@ reference <- function(interval_matrix,
 }
 
 
+
 max_lower_bound <- function(interval_matrix) {
   return(
-    which.max(interval_matrix[, 1])
+    which.max(interval_matrix[, get_range_names()[1]])
+  )
+}
+
+
+max_volume <- function(volume_matrix){
+  return(
+    which.max(volume_matrix[, "volume"])
   )
 }
