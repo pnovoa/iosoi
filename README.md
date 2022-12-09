@@ -156,7 +156,8 @@ to plot this indicator.
 
 ``` r
 E %>% 
-  geom_identify_sois(by = "poss_volume", threshold = 0.0) %>%
+  geom_identify_sois(by = "poss_volume", 
+                     threshold = 0.0) %>%
   plot_assessment(by = "poss_volume",
                   plot_title = "Normalized volume",
                   ylabel = "Normalized volume"
