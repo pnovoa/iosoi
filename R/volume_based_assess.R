@@ -215,14 +215,14 @@ volume_compare <- function(sol_eval, ref_sol_eval, vert_matrix) {
     k = identity_matrix
   )
 
-  # Computing the volume over the polyhedron of feasible weights for the 
+  # Computing the volume over the polyhedron of feasible weights for the
   # reference solution
   Vol_sol_ref <- SimplicialCubature::integrateSimplexPolynomial(
     p = pol_ref_sol,
     S = vert_matrix
   )$integral
 
-  # Computing the volume over the polyhedron of feasible weights for the 
+  # Computing the volume over the polyhedron of feasible weights for the
   # other solution
   Vol_other_sol <- SimplicialCubature::integrateSimplexPolynomial(
     p = pol_other_sol,
@@ -269,3 +269,43 @@ best_vert_prop_compare <- function(sol_scores, ref_sol_scores) {
     sum(sol_scores >= ref_sol_scores) / length(sol_scores)
   )
 }
+
+
+volume_all <- function(eval_matrix, vert_matrix, append_output = TRUE){
+
+  identity_matrix <- diag(ncol(vert_matrix))
+
+  vols <- apply(eval_matrix, MARGIN = 1, FUN = function(sol_eval){
+
+    # Defining the polynomial (scoring function)
+    pol_sol <- SimplicialCubature::definePoly(
+      coef = sol_eval,
+      k = identity_matrix
+    )
+
+    Vol_sol <- SimplicialCubature::integrateSimplexPolynomial(
+      p = pol_sol,
+      S = vert_matrix
+    )$integral
+
+    return(Vol_sol)
+
+  })
+
+  vol_mat <- matrix(vols, ncol = 1)
+  colnames(vol_mat) <- c("volume")
+  rownames(vol_mat) <- rownames(eval_matrix)
+
+  if (append_output) {
+    return(
+      cbind(eval_matrix, vol_mat)
+    )
+  }
+
+  return(vol_mat)
+
+
+
+}
+
+
