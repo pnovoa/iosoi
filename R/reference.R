@@ -2,7 +2,9 @@
 #' Identify the reference solution
 #'
 #' @param interval_matrix an \eqn{n \times p} matrix (with \eqn{p \geq 2})
-#' containing at least two columns with names \code{'LB'} and \code{'UB'}.
+#' containing at least two columns with names \code{'LB'} and \code{'UB'} (if
+#' \code{max_lower_bound} is set as selection function, or at least one column 
+#' (\code{'volume'}) if \code{max_volume} is set as the selection function.
 #' @param sel_fun the selection criterion function. By default is
 #' \code{max_lower_bound}, which select the solution with the maximum lower
 #' bound (\code{LB}) as the reference solution.
