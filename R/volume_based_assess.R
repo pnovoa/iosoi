@@ -271,7 +271,25 @@ best_vert_prop_compare <- function(sol_scores, ref_sol_scores) {
 }
 
 
-volume_all <- function(eval_matrix, vert_matrix, append_output = TRUE){
+#' Volume computation
+#' 
+#' Computes, for each solution, the volume corresponding to the score 
+#' function over the polyhedron of feasible weights.
+#'
+#' @param eval_matrix the evaluation matrix. A \eqn{m \times n} matrix.
+#' @param vert_matrix the vertices matrix (extreme points). A \eqn{n \times n} 
+#' matrix containing the coordinates of the vertices of the polyhedron induced
+#' by the preference order provided for the criteria.
+#' @param append_output whether or not, the output is append to 
+#' \code{eval_matrix}
+#'
+#' @return a \eqn{m \times p} matrix (with \eqn{p \geq 1}) with the volume of
+#' every solution of the eval_matrix.
+#' 
+#' @export
+#'
+#' @examples
+volume <- function(eval_matrix, vert_matrix, append_output = TRUE){
 
   identity_matrix <- diag(ncol(vert_matrix))
 
