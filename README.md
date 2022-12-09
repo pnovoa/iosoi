@@ -59,11 +59,11 @@ and evaluation matrix:
 
 $$ E_{5 \times 3} =
 \left(\begin{array}{cc} 
-5 & 3 & 2 \\
-2 & 1 & 3 \\
-3 & 1 & 4 \\
-4 & 5 & 3 \\
-4 & 4 & 2 \\
+5 & 2 & 3 \\
+4 & 4 & 3 \\
+1 & 1 & 5 \\
+4 & 2 & 3 \\
+4 & 3 & 2 \\
 \end{array}\right)
 $$
 
@@ -86,6 +86,13 @@ assessments greater than $0$ will appear in the output.
 library(iosoi)
 # Evaluation matrix
 E <- matrix(c(5, 2, 3, 4, 4, 3, 1, 1, 5, 4, 2, 3, 4, 3, 2), byrow = TRUE, nrow = 5)
+E
+#>      [,1] [,2] [,3]
+#> [1,]    5    2    3
+#> [2,]    4    4    3
+#> [3,]    1    1    5
+#> [4,]    4    2    3
+#> [5,]    4    3    2
 
 # Identifying SOIs from the possibility approach of Torres et al (2021).
 E %>% poss_identify_sois(by = "neutral", threshold = 0.0)
