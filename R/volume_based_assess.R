@@ -322,8 +322,6 @@ volume <- function(eval_matrix, vert_matrix, append_output = TRUE){
 
   return(vol_mat)
 
-
-
 }
 
 
