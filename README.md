@@ -6,9 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of *iosoi* is to provide an [R](https://www.r-project.org)
-implementation of the multi-criteria decision making approach proposed
-in:
+`iosoi` is an [R](https://www.r-project.org) package that implements and
+extends the multi-criteria decision making (MCDM) approach proposed in:
 
 - Torres, M., Pelta, D. A., Lamata, M. T., & Yager, R. R. (2021). An
   approach to identify solutions of interest from multi and
@@ -16,15 +15,16 @@ in:
   Applications, 33*(7), 2471–2481.
   [doi:10.1007/s00521-020-05140-x](https://doi.org/10.1007/s00521-020-05140-x)
 
-It also includes alternative approaches for assessing the solutions from
-a geometric perspective. Formally, iosoi helps to solve the following
+In addition to the interval-based approach proposed by Torres et al
+(2021), it also includes volume-based methods for assessing the
+solutions. Formally, `iosoi` automatizes the solution of the following
 MCDM problem:
 
-Given a set of m solutions (alternatives) with evaluations on n
-criteria, and an order of preference among these criteria, **order the
-solutions according to their overall scores**. These overall scores are
-obtained through the linear combination of the evaluations and the
-weights of the criteria.
+Given a set of $m$ solutions (alternatives) with evaluations on $n$
+criteria, and an order of preference among these criteria, the goal is
+to **order the solutions according to their overall scores**. These
+overall scores are obtained through the linear combination of the
+evaluations and the weights of the criteria.
 
 ## Installation
 

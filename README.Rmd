@@ -18,21 +18,24 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of *iosoi* is to provide an [R](https://www.r-project.org) 
-implementation of the multi-criteria decision making approach proposed in:
+`iosoi` is an [R](https://www.r-project.org) package that implements and extends
+the multi-criteria decision making (MCDM) approach proposed in:
 
 - Torres, M., Pelta, D. A., Lamata, M. T., & Yager, R. R. (2021). 
 An approach to identify solutions of interest from multi and many-objective 
 optimization problems. *Neural Computing & Applications, 33*(7), 2471–2481. 
 [doi:10.1007/s00521-020-05140-x](https://doi.org/10.1007/s00521-020-05140-x)
 
-It also includes alternative approaches for assessing the solutions from a
-geometric perspective. Formally, iosoi helps to solve the following MCDM problem:
+In addition to the interval-based approach proposed by Torres et al (2021), it 
+also includes volume-based methods for assessing the solutions. Formally, 
+`iosoi` automatizes the solution of the following MCDM problem:
 
-Given a set of m solutions (alternatives) with evaluations on n criteria, 
-and an order of preference among these criteria, **order the solutions according 
-to their overall scores**. These overall scores are obtained through the linear 
-combination of the evaluations and the weights of the criteria.
+Given a set of $m$ solutions (alternatives) with evaluations on $n$
+criteria, and an order of preference among these criteria, the goal is to 
+**order the solutions according to their overall scores**. These overall 
+scores are obtained through the linear combination of the evaluations and the
+weights of the criteria.
+
 
 ## Installation
 
@@ -44,7 +47,7 @@ You can install the development version of *iosoi* from
 devtools::install_github("pnovoa/iosoi")
 ```
 
-## Example
+## Example 1: Interval-based approach
 
 Consider a decision problem in which the objective is to identify a set of 
 solutions of interest based on their overall performance over a given set of 
@@ -79,21 +82,24 @@ in decreasing order regarding the order followed by the criteria in matrix
 $E_{ij}$.
 
 Using the `iosoi` package, one can perform the steps of the Torres et al. (2021) 
-approach to obtain global evaluations of the solutions and be able to select 
-those of greatest interest to the decision maker. In what follows we will perform
-this task from both, the possibility approach by Torres et al. (2021) and a
-geometric approach based on the notion of the volume. In the case of possibility
-approach we will rely on the *neutral* attitude for computing the superiority
-degree of the solutions against the reference one. For both approaches we set
-a threshold of $0$, which means that only those solutions with their 
-corresponding assessments greater than $0$ will appear in the output.
+approach to obtain global assessments for the solutions and be able to select 
+those of greatest interest to the decision maker, that is, what we refer as 
+**solution of interest** (SOIs) . In what follows we will perform
+this task using the interval-based approach by Torres et al. (2021). 
+Specifically, we rely on the *neutral* attitude for computing the superiority
+degree of each solutions against the reference one. For both approaches we set
+a threshold of $0$, which means that only those solutions with assessments 
+greater than $0$ will appear in the output.
 
-```{r example}
+```{r example1}
 library(iosoi)
 
 # Evaluation matrix
-E <- matrix(c(5, 2, 3, 4, 4, 3, 1, 1, 5, 4, 2, 3, 4, 3, 2), byrow = TRUE, nrow = 5)
-E
+E <- matrix(data = c(5, 2, 3, 4, 4, 3, 1, 1, 5, 4, 2, 3, 4, 3, 2), 
+            byrow = TRUE, 
+            nrow = 5)
+
+print(E)
 
 # Identifying SOIs from the possibility approach of Torres et al (2021).
 E %>% poss_identify_sois(by = "neutral", threshold = 0.0)
@@ -101,22 +107,21 @@ E %>% poss_identify_sois(by = "neutral", threshold = 0.0)
 # Identifying SOIs from the geometric approach based on the volume
 E %>% geom_identify_sois(by = "poss_volume", threshold = 0.0)
 ```
-As noted, both outputs contain not only the original evaluation matrix, but also
+As noted, the output contains not only the original evaluation matrix, but also
 other columns related to intermediate steps of the method of Torres et al (2021).
 For instance, those columns with prefix `VE_` corresponds to the linear 
 scoring of each solution at the extreme points of the feasible region induced by
 the preference order of the criteria. Columns `LB` and `UB` contain the lower 
-and upper bounds of the values obtained in the `VE_` columns. The Boolean column
-`REF` identify (with 1) the reference solution, that is, the one used to assess 
-the rest of solutions. Finally, the last column (ie. `neutral` or `poss_volume`) 
-contains the overall assessment of the solutions. Note that only those with values
-greater than $0$ were included. In the first case, only solutions `S1`, 
-`S2`, `S4` and `S5` were selected, while in the second case all were included.
+and upper bounds of the values obtained in the `VE_` columns. The *Boolean* column
+`REF` identifies (with 1) the reference solution, that is, the one used to assess 
+the rest of solutions. Finally, the last column `neutral` contains the overall 
+assessment for each solution. Note that only those with values
+greater than $0$ were included.
 
 To understand why solution S3 is left out in the approach of Torres et al. 
 (2021) `iosoi` allows to plot the intervals (ranges of possible scores) of each 
 solution. That is, in order to visually check the degree of overlapping of 
-the solutions in relation to the reference one.  The code then performs the 
+the solutions in relation to the reference one. The code then performs the 
 analysis again but relaxes the threshold to $-1$ to include all solutions in the
 final output. In this way the intervals of all the solutions will be plotted.
 
@@ -131,6 +136,35 @@ E %>%
 As expected, `S3` is excluded because its interval is clearly far to the left 
 relative to `S2` (the reference solution highlighted with interval in red). 
 The rest, and especially `S1` have certain levels of overlap with `S2`. 
+
+# Example 2: Volume-based approach
+
+The interval-based approach from Torres et al (2021) provides an intuitive way
+of assessing the solutions. However, it underestimates how the scoring function
+distributes over the region of feasible weights. Geometrically, it just 
+considers the line joining the two extreme points of the polyhedron 
+(ie. `LB` and `UB`) and hence, it does not take into account how *frequent* an 
+interval score value is in the region of feasible weights. So the comparison 
+against to the reference solution, is made on the basis that all scores within 
+the interval are *equally possible*, which is a very 
+
+
+```{r example2}
+library(iosoi)
+
+# Evaluation matrix
+E <- matrix(data = c(5, 2, 3, 4, 4, 3, 1, 1, 5, 4, 2, 3, 4, 3, 2), 
+            byrow = TRUE, 
+            nrow = 5)
+
+print(E)
+
+# Identifying SOIs from the possibility approach of Torres et al (2021).
+E %>% poss_identify_sois(by = "neutral", threshold = 0.0)
+
+# Identifying SOIs from the geometric approach based on the volume
+E %>% geom_identify_sois(by = "poss_volume", threshold = 0.0)
+```
 
 We can also plot any computed assessment indicator through a bar plot. For 
 example, if we consider `poss_volume`, the following code show how to plot
