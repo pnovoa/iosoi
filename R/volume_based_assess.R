@@ -289,9 +289,10 @@ best_vert_prop_compare <- function(sol_scores, ref_sol_scores) {
 #' @export
 #'
 #' @examples
-volume <- function(eval_matrix, vert_matrix, append_output = TRUE){
+volume <- function(eval_matrix, vert_matrix, mean_score=FALSE, append_output = TRUE){
 
-  identity_matrix <- diag(ncol(vert_matrix))
+  ncrit <- ncol(vert_matrix)
+  identity_matrix <- diag(ncrit)
 
   vols <- apply(eval_matrix, MARGIN = 1, FUN = function(sol_eval){
 
@@ -305,14 +306,39 @@ volume <- function(eval_matrix, vert_matrix, append_output = TRUE){
       p = pol_sol,
       S = vert_matrix
     )$integral
+    
+    if(mean_score){
+      coefs <- rep(0, ncrit)
+      coefs[0] <- 1
+      simp_pol <- SimplicialCubature::definePoly(
+        coef = coefs,
+        k = matrix(0, ncrit,ncrit)
+      )
+      
+      Vol_simp <- SimplicialCubature::integrateSimplexPolynomial(
+        p = simp_pol,
+        S = vert_matrix
+      )$integral
+      
+      return(c(Vol_sol, Vol_simp/Vol_sol))
+      
+    }
+    
 
     return(Vol_sol)
 
   })
 
-  vol_mat <- matrix(vols, ncol = 1)
-  colnames(vol_mat) <- c("volume")
-  rownames(vol_mat) <- rownames(eval_matrix)
+  if(mean_score){
+    vol_mat <- matrix(vols, ncol = 2)
+    colnames(vol_mat) <- c("volume", "mean_score")
+    rownames(vol_mat) <- rownames(eval_matrix)
+  } else{
+    vol_mat <- matrix(vols, ncol = 1)
+    colnames(vol_mat) <- c("volume")
+    rownames(vol_mat) <- rownames(eval_matrix)
+  }
+  
 
   if (append_output) {
     return(
@@ -323,5 +349,8 @@ volume <- function(eval_matrix, vert_matrix, append_output = TRUE){
   return(vol_mat)
 
 }
+
+
+
 
 

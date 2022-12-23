@@ -62,3 +62,9 @@ max_volume <- function(volume_matrix){
     which.max(volume_matrix[, "volume"])
   )
 }
+
+max_mean_score <- function(volumes_matrix){
+  return(
+    which.max(volume_matrix[, "volume"])
+  )
+}
