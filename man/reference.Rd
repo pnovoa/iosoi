@@ -8,7 +8,9 @@ reference(interval_matrix, sel_fun = max_lower_bound, append_output = TRUE)
 }
 \arguments{
 \item{interval_matrix}{an \eqn{n \times p} matrix (with \eqn{p \geq 2})
-containing at least two columns with names \code{'LB'} and \code{'UB'}.}
+containing at least two columns with names \code{'LB'} and \code{'UB'} (if
+\code{max_lower_bound} is set as selection function, or at least one column
+(\code{'volume'}) if \code{max_volume} is set as the selection function.}
 
 \item{sel_fun}{the selection criterion function. By default is
 \code{max_lower_bound}, which select the solution with the maximum lower

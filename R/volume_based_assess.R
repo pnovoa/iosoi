@@ -272,23 +272,27 @@ best_vert_prop_compare <- function(sol_scores, ref_sol_scores) {
 
 
 #' Volume computation
-#' 
-#' Computes, for each solution, the volume corresponding to the score 
+#'
+#' Computes, for each solution (rows), the volume corresponding to the score
 #' function over the polyhedron of feasible weights.
 #'
 #' @param eval_matrix the evaluation matrix. A \eqn{m \times n} matrix.
-#' @param vert_matrix the vertices matrix (extreme points). A \eqn{n \times n} 
+#' @param vert_matrix the vertices matrix (extreme points). A \eqn{n \times n}
 #' matrix containing the coordinates of the vertices of the polyhedron induced
 #' by the preference order provided for the criteria.
-#' @param append_output whether or not, the output is append to 
+#' @param mean_score whether the mean score will be computed
+#' @param append_output whether or not, the output is append to
 #' \code{eval_matrix}
 #'
 #' @return a \eqn{m \times p} matrix (with \eqn{p \geq 1}) with the volume of
 #' every solution of the eval_matrix.
-#' 
+#'
 #' @export
 #'
 #' @examples
+#' E <- create_eval_matrix_example(10, 3)
+#' V <- generate_polyhedron_vertices(3)
+#' E %>% volume(vert_matrix = V, mean_score = TRUE)
 volume <- function(eval_matrix, vert_matrix, mean_score=FALSE, append_output = TRUE){
 
   ncrit <- ncol(vert_matrix)
@@ -306,7 +310,7 @@ volume <- function(eval_matrix, vert_matrix, mean_score=FALSE, append_output = T
       p = pol_sol,
       S = vert_matrix
     )$integral
-    
+
     if(mean_score){
       coefs <- rep(0, ncrit)
       coefs[0] <- 1
@@ -314,16 +318,16 @@ volume <- function(eval_matrix, vert_matrix, mean_score=FALSE, append_output = T
         coef = coefs,
         k = matrix(0, ncrit,ncrit)
       )
-      
+
       Vol_simp <- SimplicialCubature::integrateSimplexPolynomial(
         p = simp_pol,
         S = vert_matrix
       )$integral
-      
+
       return(c(Vol_sol, Vol_simp/Vol_sol))
-      
+
     }
-    
+
 
     return(Vol_sol)
 
@@ -338,7 +342,7 @@ volume <- function(eval_matrix, vert_matrix, mean_score=FALSE, append_output = T
     colnames(vol_mat) <- c("volume")
     rownames(vol_mat) <- rownames(eval_matrix)
   }
-  
+
 
   if (append_output) {
     return(
