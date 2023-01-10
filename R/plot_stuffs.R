@@ -98,12 +98,12 @@ plot_assessment <- function(result_matrix, by, plot_title=NA, ylabel=NA) {
     toupper(substr(by, 1, 1)),
     substr(by, 2, nchar(by))
   )
-  
+
   p_title <- plot_title
   if(is.na(plot_title)){
     p_title <- what_label
   }
-  
+
   y_label <- ylabel
   if(is.na(ylabel)){
     y_label <- what_label
@@ -118,3 +118,4 @@ plot_assessment <- function(result_matrix, by, plot_title=NA, ylabel=NA) {
     main = p_title
   )
 }
+
