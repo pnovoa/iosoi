@@ -193,3 +193,7 @@ vertify <- function(A_matrix, b_vector) {
     t(apply(V, MARGIN = 2, rev))
   )
 }
+
+
+
+

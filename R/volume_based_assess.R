@@ -324,7 +324,7 @@ volume <- function(eval_matrix, vert_matrix, mean_score=FALSE, append_output = T
         S = vert_matrix
       )$integral
 
-      return(c(Vol_sol, Vol_simp/Vol_sol))
+      return(c(Vol_sol, Vol_sol/Vol_simp))
 
     }
 
