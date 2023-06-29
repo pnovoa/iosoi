@@ -10,7 +10,7 @@
 #' to a solution.
 #' @param interval_columns a 2-dimensional vector containing the names of the
 #' matrix column corresponding to lower and upper bounds of the intervals. If
-#' \code{NA}, then it will be assummed that the names are \code{'LB'} and
+#' \code{NA}, then it will be assumed that the names are \code{'LB'} and
 #' \code{'UB'}.
 #' @param reference_column the name of the matrix column corresponding to the
 #' type of solution. If \code{NA} then it will be assumed that the column is
