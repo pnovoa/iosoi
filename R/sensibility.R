@@ -1,5 +1,7 @@
 
-
+library(rmoo)
+library(combinat)
+library(rPref)
 
 find_similar_preferences <- function(eval_matrix, current_preference, current_rank, by, n_top){
 
@@ -37,7 +39,7 @@ find_similar_preferences <- function(eval_matrix, current_preference, current_ra
 
       kendall_corr <- cor(x = curr_rank_vals, y=rank_i_vals, method = "kendall")
 
-      result <- c(-match_rate, -kendall_corr)
+      result <- c(match_rate, kendall_corr)
       names(result) <- c("match_rate", "kendall_corr")
 
       return(
@@ -48,15 +50,29 @@ find_similar_preferences <- function(eval_matrix, current_preference, current_ra
 
   }
 
+  if(n_crit <= 5){
 
-  res <- nsga2(type = "permutation",
-               fitness = fitness,
-               lower = rep(1, n_crit),
-               upper = rep(n_crit, n_crit),
-               popSize = 20,
-               monitor = FALSE,
-               maxiter = 500
-               )
+    permutations <- t(array(unlist(permn(n_crit)), dim = c(n_crit, gamma(n_crit+1))))
+
+    res <- fitness(permutations)
+
+
+    res <- t(array(unlist(permn(n_crit, function(x){} c(x, sum(x), prod(x)))), dim = c(4+2, gamma(5))))
+
+  }
+
+  else{
+    res <- nsga2(type = "permutation",
+                 fitness = -fitness,
+                 lower = rep(1, n_crit),
+                 upper = rep(n_crit, n_crit),
+                 popSize = 20,
+                 monitor = FALSE,
+                 maxiter = 500
+    )
+  }
+
+
 
   return(res)
 
