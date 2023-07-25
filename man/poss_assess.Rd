@@ -20,7 +20,7 @@ to a solution.}
 
 \item{interval_columns}{a 2-dimensional vector containing the names of the
 matrix column corresponding to lower and upper bounds of the intervals. If
-\code{NA}, then it will be assummed that the names are \code{'LB'} and
+\code{NA}, then it will be assumed that the names are \code{'LB'} and
 \code{'UB'}.}
 
 \item{reference_column}{the name of column corresponding to the reference

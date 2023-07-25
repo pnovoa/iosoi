@@ -57,7 +57,7 @@ find_similar_preferences <- function(eval_matrix, current_preference, current_ra
     res <- fitness(permutations)
 
 
-    res <- t(array(unlist(permn(n_crit, function(x){} c(x, sum(x), prod(x)))), dim = c(4+2, gamma(5))))
+    # res <- t(array(unlist(permn(n_crit, function(x){} c(x, sum(x), prod(x)))), dim = c(4+2, gamma(5))))
 
   }
 
@@ -79,10 +79,10 @@ find_similar_preferences <- function(eval_matrix, current_preference, current_ra
 }
 
 
-E <- create_eval_matrix_example(nsol = 10, ncrit = 5)
-V <- generate_polyhedron_vertices(5)
-CUR <- E %>% poss_identify_sois(vert_matrix = V, threshold = -1) %>% rank_sois(by = "neutral")
-PREF <- c(1,2,3,4,5)
-res <- find_similar_preferences(eval_matrix = E, current_preference = PREF, current_rank = CUR, by = "neutral", n_top = 7)
+# E <- create_eval_matrix_example(nsol = 10, ncrit = 5)
+# V <- generate_polyhedron_vertices(5)
+# CUR <- E %>% poss_identify_sois(vert_matrix = V, threshold = -1) %>% rank_sois(by = "neutral")
+# PREF <- c(1,2,3,4,5)
+# res <- find_similar_preferences(eval_matrix = E, current_preference = PREF, current_rank = CUR, by = "neutral", n_top = 7)
 
 
