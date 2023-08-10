@@ -49,21 +49,68 @@ ws_similarity <- function(rank1, rank2){
 }
 
 
-generate_ranks <- function(eval_matrix, crit_pref, rank_crit, strength=1){
+#' One-to-one swapping sensitivity analysis
+#' 
+#' This function performs a sensitivity analysis based on a one-to-one swapping 
+#' of the preference (order) of the criteria of an MCDM problem. Specifically, 
+#' it generates all possible alternatives (permutations) of a criteria 
+#' preference and evaluates them according to a ranking comparison measure 
+#' (i.e. taking as a reference the ranking obtained by a given order of 
+#' preference of the criteria). It requires as parameters the solution 
+#' evaluation matrix used, the original criterion preference, the criterion 
+#' under which the solutions will be ranked (i.e. neutral, pessimistic, 
+#' optimistic) and the strength of the swapping 
+#' between criteria (i.e. 1, 2,...). As a result, a matrix is returned where the 
+#' first column corresponds to the preference ID and the second column to the 
+#' ranking comparison measure. 
+#'
+#' @param eval_matrix the original problem evaluation matrix.
+#' @param crit_pref a vector with the preference of criteria such that the 
+#' first element of the vector is the most important criterion, the second, 
+#' the second most important, and so on.
+#' @param rank_crit the criteria used to rank the solutions (e.g. neutral, optimistic)
+#' @param strength the distance (size) of the swap between the criteria positions.
+#'
+#' @return a data frame where each row is a criteria swap and the columns 
+#' contain information about the swap, its associated solution ranking and its 
+#' similarity to the reference ranking.
+#' @export
+#'
+#' @examples
+#' E <- create_eval_matrix_example(20, 5)
+#' P <- c(2,1,5,3,4)
+#' names(P) <- paste0("C", 1:5)[P]
+#' print(P)
+#' sens <- one_to_one_swap_sensitivity_analysis(E, P, "neutral", 1)
+#' print(sens)
+#' 
+one_to_one_swap_sensitivity_analysis <- function(eval_matrix, crit_pref, rank_crit="neutral", strength=1){
   
   N <- length(crit_pref)
   
   crit_names <- names(sort(crit_pref))
   
   vert_mat <- generate_polyhedron_vertices(N)
-  curr_vert_mat <- vert_mat[crit_pref,]
+  curr_vert_mat <- vert_mat
+  curr_vert_mat[crit_pref,] <- vert_mat
+  
+  rownames(curr_vert_mat) <- names(crit_pref)
+  colnames(curr_vert_mat) <- names(crit_pref)
   
   curr_res <- eval_matrix %>% 
-    poss_identify_sois(vert_matrix = curr_vert_mat, by = rank_crit, threshold = -1) %>%
-    rank_sois(by = rank_crit, decreasing = TRUE)
+    poss_identify_sois(vert_matrix = curr_vert_mat, by = rank_crit, threshold = -1) #%>%
+    #rank_sois(by = rank_crit, decreasing = TRUE)
   
-  curr_rank <- rownames(curr_res)
-  curr_rank_ids <- match(rownames(eval_matrix), curr_rank)
+  curr_res[,rank_crit] = -curr_res[,rank_crit]
+  
+  curr_rank_ids <- rank(curr_res[,rank_crit])
+  
+  curr_rank_ids <- match(names(sort(curr_rank_ids)), rownames(eval_matrix))
+  
+  print(curr_rank_ids)
+  
+  #curr_rank <- rownames(curr_res)
+  #curr_rank_ids <- match(curr_rank, rownames(eval_matrix))
   
   N_swaps <- N - strength
   
@@ -77,11 +124,13 @@ generate_ranks <- function(eval_matrix, crit_pref, rank_crit, strength=1){
     new_vert_mat <- vert_mat[new_crit_pref,]
     
     new_res <- eval_matrix %>% 
-      poss_identify_sois(vert_matrix = new_vert_mat, by = rank_crit, threshold = -1) %>%
-      rank_sois(by = rank_crit, decreasing = TRUE)
+      poss_identify_sois(vert_matrix = new_vert_mat, by = rank_crit, threshold = -1)
     
-    new_rank <- rownames(new_res)
-    new_rank_ids <- match(new_rank, rownames(eval_matrix))
+    new_res[,rank_crit] = -new_res[,rank_crit]
+    
+    new_rank_ids <- rank(new_res[,rank_crit])
+    
+    new_rank_ids <- match(names(sort(new_rank_ids)), rownames(eval_matrix))
     
     similarity <- ws_similarity(curr_rank_ids, new_rank_ids)
   
@@ -89,27 +138,34 @@ generate_ranks <- function(eval_matrix, crit_pref, rank_crit, strength=1){
     
     rank_name <- paste0(new_name, collapse = ",")
     
-    similarity <- c(similarity)
-    names(similarity) <- rank_name
+    swap_name <- paste0(crit_names[c(new_crit_pref[i], new_crit_pref[i+strength])], collapse = ",")
+    
+    ranking <- paste0(new_rank_ids, collapse = ",")
+    
+    res <- c(new_crit_pref[i], new_crit_pref[i+strength], similarity, ranking)
+    
+    list_res <- list(res)
+    
+    names(list_res) <- swap_name
     
     return(
-      similarity
+      list_res
     )
     
   })
   
+  mm <- matrix(unlist(results), byrow = TRUE, nrow = N_swaps)
+  rownames(mm) <- names(results)
+  colnames(mm) <- c("si", "sj", "sim", "ranking")
+  
+  dtf <- data.frame(mm)
+  
+  dtf$swap <- rownames(dtf)
+  
+  rownames(dtf) <- NULL
+  
   return(
-    results
+    dtf[c(5,1,2,3,4)]
   )
   
 }
-
-# ncrit <- 5
-# E <- create_eval_matrix_example(nsol = 10, ncrit = ncrit) 
-# crit_pref <- sample(ncrit, ncrit)
-# names(crit_pref) <- paste0("C", 1:ncrit)
-# 
-# print(names(crit_pref))
-# 
-# res <- generate_ranks(eval_matrix = E, crit_pref = crit_pref, rank_crit = "neutral", strength = 2)
-# print(res)

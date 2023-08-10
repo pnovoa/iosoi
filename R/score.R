@@ -42,7 +42,7 @@ score <- function(eval_matrix,
     v_mat <- vert_matrix
   }
 
-  criteria_names <- colnames(eval_matrix)
+  criteria_names <- row.names(vert_matrix)
 
   if (is.null(criteria_names)) {
     criteria_names <- generate_criteria_names(ncrit = ncrit)
