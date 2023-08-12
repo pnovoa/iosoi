@@ -107,8 +107,6 @@ one_to_one_swap_sensitivity_analysis <- function(eval_matrix, crit_pref, rank_cr
   
   curr_rank_ids <- match(names(sort(curr_rank_ids)), rownames(eval_matrix))
   
-  print(curr_rank_ids)
-  
   #curr_rank <- rownames(curr_res)
   #curr_rank_ids <- match(curr_rank, rownames(eval_matrix))
   
