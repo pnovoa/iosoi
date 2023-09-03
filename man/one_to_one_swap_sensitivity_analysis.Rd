@@ -25,7 +25,7 @@ the second most important, and so on.}
 \value{
 a data frame where each row is a criteria swap and the columns 
 contain information about the swap, its associated solution ranking and its 
-similarity to the reference ranking.
+similarities to the reference ranking.
 }
 \description{
 This function performs a sensitivity analysis based on a one-to-one swapping 
@@ -37,9 +37,14 @@ preference of the criteria). It requires as parameters the solution
 evaluation matrix used, the original criterion preference, the criterion 
 under which the solutions will be ranked (i.e. neutral, pessimistic, 
 optimistic) and the strength of the swapping 
-between criteria (i.e. 1, 2,...). As a result, a matrix is returned where the 
-first column corresponds to the preference ID and the second column to the 
-ranking comparison measure.
+between criteria (i.e. 1, 2,...).
+}
+\details{
+As a result, a dataframe is returned 
+containing for each swap five correlation coefficients (similarity) between 
+the ranking due to the swap and the reference ranking. The correlation 
+coefficients are: Spearman, Kendall, Blest, Weighted Correlation 
+Coefficient and WS.
 }
 \examples{
 E <- create_eval_matrix_example(20, 5)
