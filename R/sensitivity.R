@@ -245,7 +245,7 @@ one_to_one_swap_sensitivity_analysis <- function(eval_matrix, crit_pref, rank_cr
     
     rank_name <- paste0(new_name, collapse = ", ")
     
-    swap_name <- paste0(crit_names[c(new_crit_pref[i], new_crit_pref[i+strength])], collapse = ",")
+    swap_name <- paste0(crit_names[c(new_crit_pref[i], new_crit_pref[i+strength])], collapse = "<=>")
     
     ranking <- paste0(new_rank_ids, collapse = ", ")
     
