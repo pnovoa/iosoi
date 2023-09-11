@@ -276,3 +276,8 @@ one_to_one_swap_sensitivity_analysis <- function(eval_matrix, crit_pref, rank_cr
   )
   
 }
+
+perform_all_one_to_one_sa <- function(eval_matrix, crit_pref, rank_crit="neutral", strength=1){
+  
+  
+}
