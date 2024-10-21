@@ -28,15 +28,30 @@ intervals <- function(eval_at_vert_matrix,
   if (length(true_eav_matrix) == 0) {
     true_eav_matrix <- eval_at_vert_matrix
   }
+  
+  ncrit <- ncol(true_eav_matrix)
+  weights_matrix <- generate_polyhedron_vertices(ncrit = ncrit)
 
   # Get the scoring interval for each solution
   interval_matrix <- apply(true_eav_matrix, MARGIN = 1, FUN = range)
   interval_matrix <- t(interval_matrix)
   colnames(interval_matrix) <- c("LB", "UB")
+  
+  weigth_indexes_matrix <- apply(true_eav_matrix, MARGIN = 1, FUN = function(x){
+    xmin <- which.min(x) 
+    xmax <- which.max(x)
+    weight_bounds <- weights_matrix[, c(xmin, xmax)]
+    return(weight_bounds)
+  })
+  
+  weigth_indexes_matrix <- t(weigth_indexes_matrix)
+  colnames(weigth_indexes_matrix) <- c(paste0(get_weights_prefix(), "_LB_", 1:ncrit),
+                                       paste0(get_weights_prefix(), "_UB_", 1:ncrit)
+                                       )
 
   if (append_output) {
     return(
-      cbind(eval_at_vert_matrix, interval_matrix)
+      cbind(eval_at_vert_matrix, interval_matrix, weigth_indexes_matrix)
     )
   }
 

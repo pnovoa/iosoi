@@ -32,11 +32,29 @@ generate_criteria_names <- function(ncrit) {
   paste0(get_criteria_prefix(), 1:ncrit)
 }
 
+#' Automatic names for weights
+#'
+#' It generates names for the weights consecutively.
+#'
+#' @param ncrit The number of weights
+#'
+#' @return A character vector of length \code{ncrit}.
+generate_weights_names <- function(ncrit) {
+  paste0(get_weights_prefix(), 1:ncrit)
+}
+
 #' Name prefix for criteria columns
 #'
 #' @return Return the prefix for the automatic names of criteria.
 get_criteria_prefix <- function() {
   return("C")
+}
+
+#' Name prefix for weights columns
+#'
+#' @return Return the prefix for the automatic names of weights.
+get_weights_prefix <- function() {
+  return("W")
 }
 
 #' Name prefix for vertices score columns
