@@ -37,7 +37,7 @@ intervals <- function(eval_at_vert_matrix,
   interval_matrix <- t(interval_matrix)
   colnames(interval_matrix) <- c("LB", "UB")
   
-  weigth_indexes_matrix <- apply(true_eav_matrix, MARGIN = 1, FUN = function(x){
+  weigth_indexes_matrix <- apply(interval_matrix, MARGIN = 1, FUN = function(x){
     xmin <- which.min(x) 
     xmax <- which.max(x)
     weight_bounds <- weights_matrix[, c(xmin, xmax)]
