@@ -195,5 +195,41 @@ vertify <- function(A_matrix, b_vector) {
 }
 
 
+#' Sample Internal Points of a Convex Polyhedron
+#'
+#' This function generates a set of points inside an n-dimensional convex polyhedron 
+#' defined by its vertices. Each point is obtained as a convex combination of the vertices.
+#'
+#' @param vertices A numeric matrix of size \eqn{n \times m}, where each column 
+#'   represents a vertex of the polyhedron in n-dimensional space.
+#' @param n_points An integer indicating the number of points to sample inside the polyhedron.
+#' @return A numeric matrix of size \eqn{n_points \times n}, where each row represents 
+#'   a sampled point inside the polyhedron.
+#' @examples
+#' # Define the vertices of a triangle in 2D
+#' vertices <- matrix(c(0, 0, 1, 1, 0, 1), nrow = 2, byrow = FALSE)
+#' 
+#' # Sample 10 points inside the triangle
+#' sampled_points <- sample_points_in_polyhedron(vertices, 10)
+#' 
+#' # Plot the vertices and sampled points
+#' plot(vertices[1,], vertices[2,], pch = 19, col = "red", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+#' points(sampled_points[,1], sampled_points[,2], pch = 19, col = "blue")
+#'
+#' @export
+sample_points_in_polyhedron <- function(vertices, n_points) {
+  # Number of vertices (columns of the matrix)
+  n_vertices <- ncol(vertices)
+  
+  # Generate random weights that sum to 1 for each point
+  weights <- matrix(runif(n_points * n_vertices), nrow = n_points, ncol = n_vertices)
+  weights <- weights / rowSums(weights) # Normalize rows so that weights sum to 1
+  
+  # Compute sampled points as convex combinations of vertices
+  sampled_points <- weights %*% t(vertices)
+  
+  return(sampled_points)
+}
+
 
 
